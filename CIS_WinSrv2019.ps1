@@ -3,9 +3,16 @@
 # https://github.com/viniciusmiguel/CIS-Microsoft-Windows-Server-2019-Benchmark
 
 ##########################################################################################################
+$LogonLegalNoticeMessageTitle = "Warning Notice:"
+$LogonLegalNoticeMessage = "You are about to enter a private network intended for the authorized users only. The use of this system may be,monitored and/or recorded for administrative and security reasons in,accordance with applicable law and policies."
+
 #IF YOU HAVE SPECIAL SECURITY REQUIREMENTS YOU CAN DISABLE POLICIES BELLOW
 
 $ExecutionList = @(
+    #KEEP THESE IN THE BEGINING
+    "RenameAdministratorAccount", #2.3.1.5 
+    "RenameGuestAccount",         #2.3.1.6
+    ###########################
     "EnforcePasswordHistory", #1.1.1
     "MaximumPasswordAge",     #1.1.2
     "MinimumPasswordAge",     #1.1.3
@@ -67,13 +74,41 @@ $ExecutionList = @(
     "DisableMicrosoftAccounts",    #2.3.1.2
     "DisableGuestAccount",         #2.3.1.3
     "LimitBlankPasswordConsole",   #2.3.1.4
+    "AuditForceSubCategoryPolicy",  #2.3.2.1
+    "AuditForceShutdown", #2.3.2.2
+    "DevicesAdminAllowedFormatEject", #2.3.4.1
+    "PreventPrinterInstallation", #2.3.4.2
+    #2.3.5.1 Not Applicable to Member Server
+    #2.3.5.2 Not Applicable to Member Server
+    #2.3.5.3 Not Applicable to Member Server
+    "SignEncryptAllChannelData", #2.3.6.1
+    "SecureChannelWhenPossible", #2.3.6.2
+    "DigitallySignChannelWhenPossible", #2.3.6.3
+    "EnableAccountPasswordChanges", #2.3.6.4
+    "MaximumAccountPasswordAge",    #2.3.6.5
+    "RequireStrongSessionKey",      #2.3.6.6
+    "RequireCtlAltDel",      #3.3.7.1
+    "DontDisplayLastSigned",  #3.3.7.2
+    "MachineInactivityLimit", #3.3.7.3
+    "LogonLegalNotice", #3.3.7.4
+    "LogonLegalNoticeTitle", #3.3.7.5
+    "PreviousLogonCache", #3.3.7.6
     ""
 )
+
 
 $AdminAccountName = "Administrator"
 $GuestAccountName = "Guest"
 
+#Randomize the new admin and guest accounts on each system.
+#This increases the security not affecting the accessibility since these accounts are always disabled. 
 
+$seed_admin = Get-Random -Minimum 1000 -Maximum 9999
+$seed_guest = Get-Random -Minimum 1000 -Maximum 9999
+
+$AdminNewAccountName = "Admin$($seed_admin)"
+
+$GuestNewAccountName = "Guest$($seed_guest)"
 
 #DO NOT CHANGE CODE BELLOW THIS LINE IF YOU ARE NOT 100% SURE ABOUT WHAT YOU ARE DOING!
 ##########################################################################################################
@@ -371,31 +406,31 @@ function DebugPrograms {
 function DenyNetworkAccess {
     #2.2.21 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny access to this computer from the network
     Write-Info "2.2.21 (L1) Ensure 'Deny access to this computer from the network' to include 'Guests, Local account and member of Administrators group'"
-    SetUserRight "SeDenyNetworkLogonRight"($SID_LOCAL_ACCOUNT, $($AdminAccountName),$($GuestAccountName))
+    SetUserRight "SeDenyNetworkLogonRight"($SID_LOCAL_ACCOUNT, $($AdminNewAccountName),$($GuestAccountName))
 }
 
 function DenyGuestBatchLogon {
     #2.2.22 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on as a batch job
     Write-Info "2.2.22 (L1) Ensure 'Deny log on as a batch job' to include 'Guests'"
-    SetUserRight "SeDenyBatchLogonRight" (,$GuestAccountName)
+    SetUserRight "SeDenyBatchLogonRight" (,$GuestNewAccountName)
 }
 
 function DenyGuestServiceLogon {
     #2.2.23 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on as a service
     Write-Info "2.2.23 (L1) Ensure 'Deny log on as a service' to include 'Guests'"
-    SetUserRight "SeDenyServiceLogonRight" (,$GuestAccountName)
+    SetUserRight "SeDenyServiceLogonRight" (,$GuestNewAccountName)
 }
 
 function DenyGuestLocalLogon {
     #2.2.24 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on locally
     Write-Info "2.2.24 (L1) Ensure 'Deny log on locally' to include 'Guests'"
-    SetUserRight "SeDenyInteractiveLogonRight" (,$GuestAccountName)
+    SetUserRight "SeDenyInteractiveLogonRight" (,$GuestNewAccountName)
 }
 
 function DenyRemoteDesktopServiceLogon {
     #2.2.26 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on through Remote Desktop Services
     Write-Info "2.2.26 (L1) Ensure 'Deny log on through Remote Desktop Services' is set to 'Guests, Local account'"
-    SetUserRight "SeDenyRemoteInteractiveLogonRight" ($SID_LOCAL_ACCOUNT, $GuestAccountName)
+    SetUserRight "SeDenyRemoteInteractiveLogonRight" ($SID_LOCAL_ACCOUNT, $GuestNewAccountName)
 }
 
 function NoOneTrustedForDelegation {
@@ -524,6 +559,113 @@ function LimitBlankPasswordConsole {
     Write-Info "2.3.1.4 (L1) Ensure 'Accounts: Limit local account use of blank passwords to console logon only' is set to 'Enabled'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\LimitBlankPasswordUse" (,"4,1")
 }
+
+function RenameAdministratorAccount {
+    #2.3.1.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Accounts: Rename administrator account
+    Write-Info "2.3.1.5 (L1) Configure 'Accounts: Rename administrator account'"
+    SetSecurityPolicy "NewAdministratorName" (,$AdminNewAccountName)
+}
+
+function RenameGuestAccount {
+    #2.3.1.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Accounts: Rename guest account
+    Write-Info "2.3.1.6 (L1) Configure 'Accounts: Rename guest account'"
+    SetSecurityPolicy "NewGuestName" (,$GuestNewAccountName)
+}
+
+function AuditForceSubCategoryPolicy {
+    #2.3.2.1 =>Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings
+    Write-Info "2.3.2.1 (L1) Ensure 'Audit: Force audit policy subcategory settings to override audit policy category settings' is set to 'Enabled' "
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\SCENoApplyLegacyAuditPolicy" (,"4,1")
+}
+
+function AuditForceShutdown {
+    #2.3.2.2 Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Audit: Shut down system immediately if unable to log security audits
+    Write-Info "2.3.2.2 (L1) Ensure 'Audit: Shut down system immediately if unable to log security audits' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\CrashOnAuditFail" (,"4,0")
+}
+
+function DevicesAdminAllowedFormatEject {
+    #2.3.4.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Devices: Allowed to format and eject removable media
+    Write-Info "2.3.4.1 (L1) Ensure 'Devices: Allowed to format and eject removable media' is set to 'Administrators'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\AllocateDASD" (,"1,`"0`"")
+}
+
+function PreventPrinterInstallation {
+    #2.3.4.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Devices: Prevent users from installing printer drivers
+    Write-Info "2.3.4.2 (L1) Ensure 'Devices: Prevent users from installing printer drivers'is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Print\Providers\LanMan Print Services\Servers\AddPrinterDrivers" (,"4,1")
+}
+
+function SignEncryptAllChannelData {
+    #2.3.6.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Digitally encrypt or sign secure channel data (always)
+    Write-Info "2.3.6.1 (L1) Ensure 'Domain member: Digitally encrypt or sign secure channel data (always)' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\RequireSignOrSeal" (,"4,1")
+}
+
+function SecureChannelWhenPossible {
+    #2.3.6.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Digitally encrypt secure channel data (when possible)
+    Write-Info "2.3.6.2 (L1) Ensure 'Domain member: Digitally encrypt secure channel data (when possible)"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\SealSecureChannel" (,"4,1")
+}
+
+function DigitallySignChannelWhenPossible {
+    #2.3.6.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Digitally sign secure channel data (when possible)
+    Write-Info "2.3.6.3 (L1) Ensure 'Domain member: Digitally sign secure channel data (when possible)' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\SignSecureChannel" (,"4,1")
+}
+
+function EnableAccountPasswordChanges {
+    #2.3.6.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Disable machine account password changes
+    Write-Info "2.3.6.4 (L1) Ensure 'Domain member: Disable machine account password changes' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\DisablePasswordChange" (,"4,0")
+}
+
+function MaximumAccountPasswordAge {
+    #2.3.6.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Maximum machine account password age    Write-Info "2.3.6.5 (L1) Ensure 'Domain member: Maximum machine account password age' is set to '30 or fewer days, but not 0'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\MaximumPasswordAge" (,"4,30")
+}
+
+function RequireStrongSessionKey {
+    #2.3.6.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Require strong (Windows 2000 or later) session key
+    Write-Info "2.3.6.6 (L1) Ensure 'Domain member: Require strong (Windows 2000 or later) session key' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\RequireStrongKey" (,"4,1")
+}
+
+function RequireCtlAltDel {
+    #2.3.7.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Do not require CTRL+ALT+DEL
+    Write-Info "2.3.7.1 (L1) Ensure 'Interactive logon: Do not require CTRL+ALT+DEL' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableCAD" (,"4,0")
+}
+
+function DontDisplayLastSigned {
+    #2.3.7.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Don't display last signed-in
+    Write-Info "2.3.7.2 (L1) Ensure 'Interactive logon: Don't display last signed-in' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\DontDisplayLastUserName" (,"4,0")
+}
+
+function MachineInactivityLimit {
+    #2.3.7.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Machine inactivity limit
+    Write-Info "2.3.7.3 (L1) Ensure 'Interactive logon: Machine inactivity limit' is set to '900 or fewer second(s), but not 0' "
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\InactivityTimeoutSecs" (,"4,900")
+}
+
+function LegalNotice {
+    #2.3.7.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Message text for users attempting to log on
+    Write-Info "2.3.7.4 (L1) Configure 'Interactive logon: Message text for users attempting to log on'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText" ("7",$LogonLegalNoticeMessage)
+}
+
+function LegalNoticeTitle {
+    #2.3.7.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Message title for users attempting to log on
+    Write-Info "2.3.7.5 (L1) Configure 'Interactive logon: Message title for users attempting to log on'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption" (,"1,`"$($LogonLegalNoticeMessage)`"")
+}
+
+function PreviousLogonCache {
+    #2.3.7.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Number of previous logons to cache (in case domain controller is not available)    Write-Info "2.3.7.6 (L2) Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\CachedLogonsCount" (,"1,`"4`"")
+}
+
 
 if(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
     
