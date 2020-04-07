@@ -39,7 +39,7 @@ $ExecutionList = @(
     "CreateGlobalObjects",    #2.2.15
     "NoOneCreatesSharedObjects",#2.2.16
      #2.2.17 Not Applicable to Member Server
-    "CreateSymbolicLinks'", #2.2.18
+    "CreateSymbolicLinks", #2.2.18
     "DebugPrograms", #2.2.19
      #2.2.20 Not Applicable to Member Server
     "DenyNetworkAccess",  #2.2.21
@@ -87,12 +87,104 @@ $ExecutionList = @(
     "EnableAccountPasswordChanges", #2.3.6.4
     "MaximumAccountPasswordAge",    #2.3.6.5
     "RequireStrongSessionKey",      #2.3.6.6
-    "RequireCtlAltDel",      #3.3.7.1
-    "DontDisplayLastSigned",  #3.3.7.2
-    "MachineInactivityLimit", #3.3.7.3
-    "LogonLegalNotice", #3.3.7.4
-    "LogonLegalNoticeTitle", #3.3.7.5
-    "PreviousLogonCache", #3.3.7.6
+    "RequireCtlAltDel",      #2.3.7.1
+    "DontDisplayLastSigned",  #2.3.7.2
+    "MachineInactivityLimit", #2.3.7.3
+    "LogonLegalNotice", #2.3.7.4
+    "LogonLegalNoticeTitle", #2.3.7.5
+    "PreviousLogonCache", #2.3.7.6
+    "PromptUserPassExpiration", #2.3.7.7
+    "RequireDomainControllerAuth", #2.3.7.8
+    "SmartCardRemovalBehaviour", #2.3.7.9
+    "NetworkClientSignCommunications", #2.3.8.1
+    "EnableSecuritySignature",         #2.3.8.2
+    "DisableSmbUnencryptedPassword",   #2.3.8.3
+    "IdleTimeSuspendingSession",        #2.3.9.1
+    "NetworkServerAlwaysDigitallySign", #2.3.9.2
+    "EnableSecuritySignature", #2.3.9.3
+    "LanManServerEnableForcedLogOff", #2.3.9.4
+    "LanManServerSmbServerNameHardeningLevel", #2.3.9.5
+    "LSAAnonymousNameDisabled", #2.3.10.1
+    "RestrictAnonymousSAM", #2.3.10.2
+    "RestrictAnonymous", #2.3.10.3
+    "DisableDomainCreds", #2.3.10.4
+    "EveryoneIncludesAnonymous", #2.3.10.5
+    #2.3.10.6 Not Applicable to Member Server
+    "NullSessionPipes", #2.3.10.7
+    "AllowedExactPaths", #2.3.10.8
+    "AllowedPaths", #2.3.10.9
+    "RestrictNullSessAccess", #2.3.10.10
+    "RestrictRemoteSAM", #2.3.10.11
+    "NullSessionShares", #2.3.10.12
+    "LsaForceGuest", #2.3.10.13
+    "LsaUseMachineId", #2.3.11.1
+    "AllowNullSessionFallback", #2.3.11.2
+    "AllowOnlineID", #2.3.11.3
+    "SupportedEncryptionTypes", #2.3.11.4
+    "NoLMHash", #2.3.11.5
+    "ForceLogoff", #2.3.11.6
+    "LmCompatibilityLevel", #2.3.11.7
+    "LDAPClientIntegrity", #2.3.11.8
+    "NTLMMinClientSec", #2.3.11.9
+    "NTLMMinServerSec", #2.3.11.10
+    "ShutdownWithoutLogon", #2.3.13.1
+    "ObCaseInsensitive", #2.3.15.1
+    "SessionManagerProtectionMode", #2.3.15.2
+    "FilterAdministratorToken", #2.3.17.1
+    "ConsentPromptBehaviorAdmin", #2.3.17.2
+    "ConsentPromptBehaviorUser", #2.3.17.3
+    "EnableInstallerDetection", #2.3.17.4
+    "EnableSecureUIAPaths", #2.3.17.5
+    "EnableLUA", #2.3.17.6
+    "PromptOnSecureDesktop", #2.3.17.7
+    "EnableVirtualization", #2.3.17.8
+    "DomainEnableFirewall", #9.1.1
+    "DomainDefaultInboundAction", #9.1.2
+    "DomainDefaultOutboundAction", #9.1.3
+    "DomainDisableNotifications", #9.1.4
+    "DomainLogFilePath", #9.1.5
+    "DomainLogFileSize", #9.1.6
+    "DomainLogDroppedPackets", #9.1.7
+    "DomainLogSuccessfulConnections", #9.1.8
+    "PrivateEnableFirewall", #9.2.1
+    "PrivateDefaultInboundAction", #9.2.2
+    "PrivateDefaultOutboundAction", #9.2.3
+    "PrivateDisableNotifications", #9.2.4
+    "PrivateLogFilePath", #9.2.5
+    "PrivateLogFileSize", #9.2.6
+    "PrivateLogDroppedPackets", #9.2.7
+    "PrivateLogSuccessfulConnections", #9.2.8
+    "PublicEnableFirewall", #9.3.1
+    "PublicDefaultInboundAction", #9.3.2
+    "PublicDefaultOutboundAction", #9.3.3
+    "PublicDisableNotifications", #9.3.4
+    "PublicAllowLocalPolicyMerge", #9.3.5
+    "PublicAllowLocalIPsecPolicyMerge ", #9.3.6
+    "PublicLogFilePath", #9.3.7
+    "PublicLogFileSize", #9.3.8
+    "PublicLogDroppedPackets", #9.3.9
+    "PublicLogSuccessfulConnections", #9.3.10
+    "AuditCredentialValidation", #17.1.1
+    "AuditComputerAccountManagement", #17.2.1
+    #17.2.2 Not Applicable to Member Server
+    #17.2.3 Not Applicable to Member Server
+    #17.2.4 Not Applicable to Member Server
+    "AuditSecurityGroupManagement", #17.2.5
+    "AuditUserAccountManagement", #17.2.6
+    "AuditPNPActivity", #17.3.1
+    "AuditProcessCreation", #17.3.2
+    #17.4.1 Not Applicable to Member Server
+    #17.4.2 Not Applicable to Member Server
+    "AuditAccountLockout", #17.5.1
+    "AuditGroupMembership", #17.5.2
+    "AuditLogoff", #17.5.3
+    "AuditLogon", #17.5.4
+    "AuditOtherLogonLogoffEvents", #17.5.5
+    "AuditSpecialLogon", #17.5.6
+    "AuditDetailedFileShare", #17.6.1
+    "AuditFileShare", #17.6.2
+    "AuditOtherObjectAccessEvents", #17.6.3
+    "AuditRemovableStorage", #17.6.4
     ""
 )
 
@@ -149,11 +241,20 @@ function Write-After($text) {
 Write-Info "CIS Microsoft Windows Server 2019 RTM Benchmark"
 Write-Info "Script written and tested by Vinicius Miguel"
 
+function SetRegistry([string] $path, [string] $key, [string] $value) {
+    $before = Get-ItemProperty -Path $path -Name $key
+    Write-Before "Was: $($before.$key)"
+    Set-ItemProperty -Path $path -Name $key -Value $value
+    $after = Get-ItemProperty -Path $path -Name $key
+    Write-After "Now is: $($after.$key)"
+}
+
 function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) {
     $valueSet = $false
 
     if($values -eq $null) {
         Write-Error "SetUserRight: At least one value must be provided to set the role:$($role)"
+        return
     }
     
     if($enforceCreation -eq $null){
@@ -184,7 +285,7 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
     if($enforceCreation -eq $true){
         if($valueSet -eq $false) {
             Write-Before "Was: Not Defined"
-            $lines[$lines.Length] = $config
+            $lines += $config
             Write-After "Now is: $($lines[$lines.Length -1])"
         }
     }
@@ -195,11 +296,11 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
 }
 
 function SetUserRight([string]$role, [string[]] $values, $enforceCreation) {
-    SetSecEdit($role,$values,"User_Rights",$enforceCreation)
+    SetSecEdit $role $values "User_Rights" $enforceCreation
 }
 
 function SetSecurityPolicy([string]$role, [string[]] $values, $enforceCreation) {
-    SetSecEdit($role,$values,"SecurityPolicy",$enforceCreation)
+    SetSecEdit $role $values "SecurityPolicy" $enforceCreation 
 }
 
 function InstallPolicyFileEditor {
@@ -514,7 +615,7 @@ function ProfileSystemPerformance {
 
 function ReplaceProcessLevelToken {
     #2.2.44 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Replace a process level token
-    Write-Info "2.2.44 (L1) Ensure 'Replace a process level token' is set to 'LOCAL SERVICE, NETWORK SERVICE' (Scored)"
+    Write-Info "2.2.44 (L1) Ensure 'Replace a process level token' is set to 'LOCAL SERVICE, NETWORK SERVICE'"
     SetUserRight "SeAssignPrimaryTokenPrivilege" ($SID_LOCAL_SERVICE, $SID_NETWORK_SERVICE)
 }
 
@@ -563,13 +664,13 @@ function LimitBlankPasswordConsole {
 function RenameAdministratorAccount {
     #2.3.1.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Accounts: Rename administrator account
     Write-Info "2.3.1.5 (L1) Configure 'Accounts: Rename administrator account'"
-    SetSecurityPolicy "NewAdministratorName" (,$AdminNewAccountName)
+    SetSecurityPolicy "NewAdministratorName" (,"`"$($AdminNewAccountName)`"")
 }
 
 function RenameGuestAccount {
     #2.3.1.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Accounts: Rename guest account
     Write-Info "2.3.1.6 (L1) Configure 'Accounts: Rename guest account'"
-    SetSecurityPolicy "NewGuestName" (,$GuestNewAccountName)
+    SetSecurityPolicy "NewGuestName" (,"`"$($GuestNewAccountName)`"")
 }
 
 function AuditForceSubCategoryPolicy {
@@ -649,13 +750,13 @@ function MachineInactivityLimit {
     SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\InactivityTimeoutSecs" (,"4,900")
 }
 
-function LegalNotice {
+function LogonLegalNotice {
     #2.3.7.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Message text for users attempting to log on
     Write-Info "2.3.7.4 (L1) Configure 'Interactive logon: Message text for users attempting to log on'"
     SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeText" ("7",$LogonLegalNoticeMessage)
 }
 
-function LegalNoticeTitle {
+function LogonLegalNoticeTitle {
     #2.3.7.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Message title for users attempting to log on
     Write-Info "2.3.7.5 (L1) Configure 'Interactive logon: Message title for users attempting to log on'"
     SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption" (,"1,`"$($LogonLegalNoticeMessage)`"")
@@ -665,6 +766,544 @@ function PreviousLogonCache {
     #2.3.7.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Number of previous logons to cache (in case domain controller is not available)    Write-Info "2.3.7.6 (L2) Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)'"
     SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\CachedLogonsCount" (,"1,`"4`"")
 }
+
+function PromptUserPassExpiration {
+    #2.3.7.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Prompt user to change password before expiration
+    Write-Info "2.3.7.7 (L1) Ensure 'Interactive logon: Prompt user to change password before expiration' is set to 'between 5 and 14 days'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\PasswordExpiryWarning" (,"4,5")
+}
+
+function RequireDomainControllerAuth {
+    #2.3.7.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Require Domain Controller Authentication to unlock workstation
+    Write-Info "2.3.7.8 (L1) Ensure 'Interactive logon: Require Domain Controller Authentication to unlock workstation' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\ForceUnlockLogon" (,"4,1")
+}
+
+function SmartCardRemovalBehaviour {
+    #2.3.7.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Smart card removal behavior
+    Write-Info "2.3.7.9 (L1) Ensure 'Interactive logon: Smart card removal behavior' is set to 'Lock Workstation' or higher"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\ScRemoveOption" (,"1,`"1`"")
+}
+
+function NetworkClientSignCommunications {
+    #2.3.8.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network client: Digitally sign communications (always)
+    Write-Info "2.3.8.1 (L1) Ensure 'Microsoft network client: Digitally sign communications (always)' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\RequireSecuritySignature" (,"4,1")
+}
+
+function EnableSecuritySignature {
+    #2.3.8.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network client: Digitally sign communications (if server agrees)
+    Write-Info "2.3.8.2 (L1) Ensure 'Microsoft network client: Digitally sign communications (if server agrees)' is set to 'Enabled' "
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\EnableSecuritySignature" (,"4,1")
+}
+
+function DisableSmbUnencryptedPassword {
+    #2.3.8.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network client: Send unencrypted password to third-party SMB servers
+    Write-Info "2.3.8.3 (L1) Ensure 'Microsoft network client: Send unencrypted password to third-party SMB servers' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\EnablePlainTextPassword" (,"4,0")
+}
+
+function IdleTimeSuspendingSession {
+    #2.3.9.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network server: Amount of idle time required before suspending session
+    Write-Info "2.3.9.1 (L1) Ensure 'Microsoft network server: Amount of idle time required before suspending session' is set to '15 or fewer minute(s)'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\AutoDisconnect" (,"4,15")
+}
+
+function NetworkServerAlwaysDigitallySign {
+    #2.3.9.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network server: Digitally sign communications (always)
+    Write-Info "2.3.9.2 (L1) Ensure 'Microsoft network server: Digitally sign communications (always)' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\RequireSecuritySignature" (,"4,1")
+}
+
+function LanManSrvEnableSecuritySignature{
+    #2.3.9.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network server: Digitally sign communications (if client agrees)
+    Write-Info "2.3.9.3 (L1) Ensure 'Microsoft network server: Digitally sign communications (if client agrees)' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\EnableSecuritySignature" (,"4,1")
+}
+
+function LanManServerEnableForcedLogOff {
+    #2.3.9.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network server: Disconnect clients when logon hours expire
+    Write-Info "2.3.9.4 (L1) Ensure 'Microsoft network server: Disconnect clients when logon hours expire' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\EnableForcedLogOff" (,"4,1")
+}
+
+function LanManServerSmbServerNameHardeningLevel {
+    #2.3.9.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Microsoft network server: Server SPN target name validation level
+    Write-Info "2.3.9.5 (L1) Ensure 'Microsoft network server: Server SPN target name validation level' is set to 'Accept if provided by client' or higher"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\SmbServerNameHardeningLevel" (,"4,1")
+}
+
+function LSAAnonymousNameDisabled {
+    #2.3.10.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Allow anonymous SID/Name translation
+    Write-Info "2.3.10.1 (L1) Ensure 'Network access: Allow anonymous SID/Name translation' is set to 'Disabled'"
+    SetSecurityPolicy "LSAAnonymousNameLookup" (,"0")
+}
+
+function RestrictAnonymousSAM {
+    #2.3.10.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Do not allow anonymous enumeration of SAM accounts
+    Write-Info "2.3.10.2 (L1) Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\RestrictAnonymousSAM" (,"4,1")
+}
+
+function RestrictAnonymous {
+    #2.3.10.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Do not allow anonymous enumeration of SAM accounts and shares
+    Write-Info "2.3.10.3 (L1) Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts and shares' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\RestrictAnonymous" (,"4,1")
+}
+
+function DisableDomainCreds {
+    #2.3.10.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Do not allow storage of passwords and credentials for network authentication
+    Write-Info "2.3.10.4 (L2) Ensure 'Network access: Do not allow storage of passwords and credentials for network authentication' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\DisableDomainCreds" (,"4,1")
+}
+
+function EveryoneIncludesAnonymous {
+    #2.3.10.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Let Everyone permissions apply to anonymous users    Write-Info "2.3.10.5 (L1) Ensure 'Network access: Let Everyone permissions apply to anonymous users' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\EveryoneIncludesAnonymous" (,"4,0")
+}
+
+function NullSessionPipes {
+    #2.3.10.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Named Pipes that can be accessed anonymously
+    Write-Info "2.3.10.7 (L1) Configure 'Network access: Named Pipes that can be accessed anonymously'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\NullSessionPipes" ("7", " ")
+}
+
+function AllowedExactPaths {
+    #2.3.10.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Remotely accessible registry paths    Write-Info "2.3.10.8 (L1) Configure 'Network access: Remotely accessible registry paths'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedExactPaths\Machine" (
+        "7",
+        "System\CurrentControlSet\Control\ProductOptions",
+        "System\CurrentControlSet\Control\Server Applications",
+        "Software\Microsoft\Windows NT\CurrentVersion")
+}
+
+function AllowedPaths {
+    #2.3.10.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Remotely accessible registry paths and sub-paths    Write-Info "2.3.10.9 (L1) Configure 'Network access: Remotely accessible registry paths and sub-paths'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedPaths\Machine" (
+        "7",
+        "System\CurrentControlSet\Control\Print\Printers",
+        "System\CurrentControlSet\Services\Eventlog",
+        "Software\Microsoft\OLAP Server",
+        "Software\Microsoft\Windows NT\CurrentVersion\Print",
+        "Software\Microsoft\Windows NT\CurrentVersion\Windows",
+        "System\CurrentControlSet\Control\ContentIndex",
+        "System\CurrentControlSet\Control\Terminal Server",
+        "System\CurrentControlSet\Control\Terminal Server\UserConfig",
+        "System\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration",
+        "Software\Microsoft\Windows NT\CurrentVersion\Perflib",
+        "System\CurrentControlSet\Services\SysmonLog")
+}
+
+function RestrictNullSessAccess {
+    #2.3.10.10 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Restrict anonymous access to Named Pipes and Shares
+    Write-Info "2.3.10.10 (L1) Ensure 'Network access: Restrict anonymous access to Named Pipes and Shares' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\RestrictNullSessAccess" (,"4,1")
+}
+
+function RestrictRemoteSAM {
+    #2.3.10.11 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Restrict clients allowed to make remote calls to SAM
+    Write-Info "2.3.10.11 (L1) Ensure 'Network access: Restrict clients allowed to make remote calls to SAM' is set to 'Administrators: Remote Access: Allow'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\RestrictRemoteSAM" (,"1,O:BAG:BAD:(A;;RC;;;BA)")
+}
+
+function NullSessionShares {
+    #2.3.10.12 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Shares that can be accessed anonymously
+    Write-Info "2.3.10.12 (L1) Ensure 'Network access: Shares that can be accessed anonymously' is set to 'None'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\NullSessionShares" (,"7,")
+}
+
+function LsaForceGuest {
+    #2.3.10.13 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Sharing and security model for local accounts
+    Write-Info "2.3.10.13 (L1) Ensure 'Network access: Sharing and security model for local accounts' is set to 'Classic - local users authenticate as themselves'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\ForceGuest" (,"4,0")
+}
+
+function LsaUseMachineId {
+    #2.3.11.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Allow Local System to use computer identity for NTLM    Write-Info "2.3.11.1 (L1) Ensure 'Network security: Allow Local System to use computer identity for NTLM' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\UseMachineId" (,"4,1")
+}
+
+function AllowNullSessionFallback {
+    #2.3.11.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Allow LocalSystem NULL session fallback    Write-Info "2.3.11.2 (L1) Ensure 'Network security: Allow LocalSystem NULL session fallback' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0\allownullsessionfallback " (,"4,0")
+}
+
+function AllowOnlineID {
+    #2.3.11.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network Security: Allow PKU2U authentication requests to this computer to use online identities
+    Write-Info "2.3.11.3 (L1) Ensure 'Network Security: Allow PKU2U authentication requests to this computer to use online identities' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\pku2u\AllowOnlineID " (,"4,0")
+}
+
+function SupportedEncryptionTypes {
+    #2.3.11.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Configure encryption types allowed for Kerberos
+    Write-Info "2.3.11.4 (L1) Ensure 'Network security: Configure encryption types allowed for Kerberos' is set to 'AES128_HMAC_SHA1, AES256_HMAC_SHA1, Future encryption types'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters\SupportedEncryptionTypes" (,"4,2147483640")
+}
+
+function NoLMHash {
+    #2.3.11.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Do not store LAN Manager hash value on next password change 
+    Write-Info "2.3.11.5 Ensure 'Network security: Do not store LAN Manager hash value on next password change' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\NoLMHash" (,"4,1")
+}
+
+function ForceLogoff {
+    #2.3.11.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Force logoff when logon hours expire
+    Write-Info "2.3.11.6 Ensure 'Network security: Force logoff when logon hours expire' is set to 'Enabled'"
+    SetSecurityPolicy "ForceLogoffWhenHourExpire" (,"1")
+}
+
+function LmCompatibilityLevel {
+    #2.3.11.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: LAN Manager authentication level
+    Write-Info "2.3.11.7 Ensure 'Network security: LAN Manager authentication level' is set to 'Send NTLMv2 response only. Refuse LM & NTLM'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\LmCompatibilityLevel" (,"4,5")
+}
+
+function LDAPClientIntegrity {
+    #2.3.11.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: LDAP client signing requirements
+    Write-Info "2.3.11.8 Ensure 'Network security: LDAP client signing requirements' is set to 'Negotiate signing' or higher"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\LDAP\LDAPClientIntegrity" (,"4,1")
+}
+
+function NTLMMinClientSec {
+    #2.3.11.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Minimum session security for NTLM SSP based (including secure RPC) clients
+    Write-Info "2.3.11.9 (L1) Ensure 'Network security: Minimum session security for NTLM SSP based (including secure RPC) clients' is set to 'Require NTLMv2 session security, Require 128-bit encryption'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0\NTLMMinClientSec" (,"4,537395200")
+}
+
+function NTLMMinServerSec {
+    #2.3.11.10 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Minimum session security for NTLM SSP based (including secure RPC) servers
+    Write-Info "2.3.11.10 (L1) Ensure 'Network security: Minimum session security for NTLM SSP based (including secure RPC) servers' is set to 'Require NTLMv2 session security, Require 128-bit encryption'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0\NTLMMinServerSec" (,"4,537395200")
+}
+
+function ShutdownWithoutLogon {
+    #2.3.13.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Shutdown: Allow system to be shut down without having to log on
+    Write-Info "2.3.13.1 (L1) Ensure 'Shutdown: Allow system to be shut down without having to log on' is set to 'Disabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ShutdownWithoutLogon" (,"4,0")
+}
+
+function ObCaseInsensitive {
+    #2.3.15.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\System objects: Require case insensitivity for non Windows subsystems
+    Write-Info "2.3.15.1 (L1) Ensure 'System objects: Require case insensitivity for nonWindows subsystems' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Session Manager\Kernel\ObCaseInsensitive" (, "4,1")
+}
+
+function SessionManagerProtectionMode {
+    #2.3.15.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)
+    Write-Info "2.3.15.2 (L1) Ensure 'System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Session Manager\ProtectionMode" (,"4,1")
+}
+
+function FilterAdministratorToken {
+    #2.3.17.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Admin Approval Mode for the Built-in Administrator account
+    Write-Info "2.3.17.1 (L1) Ensure 'User Account Control: Admin Approval Mode for the Built-in Administrator account' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\FilterAdministratorToken" (,"4,1")
+}
+
+function ConsentPromptBehaviorAdmin {
+    #2.3.17.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode
+    Write-Info "2.3.17.2 (L1) Ensure 'User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode' is set to 'Prompt for consent on the secure desktop'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorAdmin" (,"4,2")
+}
+
+function ConsentPromptBehaviorUser {
+    #2.3.17.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Behavior of the elevation prompt for standard users
+    Write-Info "2.3.17.3 (L1) Ensure 'User Account Control: Behavior of the elevation prompt for standard users' is set to 'Automatically deny elevation requests'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ConsentPromptBehaviorUser" (,"4,0")
+}
+
+function EnableInstallerDetection {
+    #2.3.17.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Detect application installations and prompt for elevation
+    Write-Info "2.3.17.4 (L1) Ensure 'User Account Control: Detect application installations and prompt for elevation' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableInstallerDetection" (,"4,1")
+}
+
+function EnableSecureUIAPaths {
+    #2.3.17.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Only elevate UIAccess applications that are installed in secure location
+    Write-Info "2.3.17.5 (L1) Ensure 'User Account Control: Only elevate UIAccess applications that are installed in secure locations' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableSecureUIAPaths" (, "4,1")
+}
+
+function EnableLUA {
+    #2.3.17.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Run all administrators in Admin Approval Mode
+    Write-Info "2.3.17.6 (L1) Ensure 'User Account Control: Run all administrators in Admin Approval Mode' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA" (, "4,1")
+}
+
+function PromptOnSecureDesktop {
+    #2.3.17.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Switch to the secure desktop when prompting for elevation
+    Write-Info "2.3.17.7 (L1) Ensure 'User Account Control: Switch to the secure desktop when prompting for elevation' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\PromptOnSecureDesktop" (, "4,1")
+}
+
+function EnableVirtualization {
+    #2.3.17.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\User Account Control: Virtualize file and registry write failures to per-user locations
+    Write-Info "2.3.17.8 (L1) Ensure 'User Account Control: Virtualize file and registry write failures to per-user locations' is set to 'Enabled'"
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableVirtualization" (, "4,1")
+}
+
+function DomainEnableFirewall {
+    #9.1.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Firewall state
+    Write-Info "9.1.1 (L1) Ensure 'Windows Firewall: Domain: Firewall state' is set to 'On (recommended)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "EnableFirewall" "1"
+}
+
+function DomainDefaultInboundAction {
+    #9.1.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Inbound connection 
+    Write-Info "9.1.2 (L1) Ensure 'Windows Firewall: Domain: Inbound connections' is set to 'Block (default)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DefaultInboundAction" "1"
+}
+
+function DomainDefaultOutboundAction {
+    #9.1.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Outbound connections 
+    Write-Info "9.1.3 (L1) Ensure 'Windows Firewall: Domain: Outbound connections' is set to 'Allow (default)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DefaultOutboundAction" "0"
+}
+
+function DomainDisableNotifications {
+    #9.1.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Settings Customize\Display a notification
+    Write-Info "9.1.4 (L1) Ensure 'Windows Firewall: Domain: Settings: Display a notification' is set to 'No'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DisableNotifications" "1"
+}
+
+function DomainLogFilePath {
+    #9.1.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Name
+    Write-Info "9.1.5 (L1) Ensure 'Windows Firewall: Domain: Logging: Name' is set to '%SystemRoot%\System32\logfiles\firewall\domainfw.log'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\domainfw.log"
+}
+
+function DomainLogFileSize {
+    #9.1.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Size limit (KB) 
+    Write-Info "9.1.6 (L1) Ensure 'Windows Firewall: Domain: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogFileSize" "16384"
+}
+
+function DomainLogDroppedPackets {
+    #9.1.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Log dropped packets
+    Write-Info "9.1.7 (L1) Ensure 'Windows Firewall: Domain: Logging: Log dropped packets' is set to 'Yes'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogDroppedPackets" "1"
+}
+
+function DomainLogSuccessfulConnections {
+    #9.1.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Log successful connections 
+    Write-Info "9.1.8 (L1) Ensure 'Windows Firewall: Domain: Logging: Log successful connections' is set to 'Yes'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogSuccessfulConnections" "1"
+}
+
+function PrivateEnableFirewall {
+    #9.2.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Firewall state
+    Write-Info "9.2.1 (L1) Ensure 'Windows Firewall: Private: Firewall state' is set to 'On (recommended)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "EnableFirewall" "1"
+}
+
+function PrivateDefaultInboundAction {
+    #9.2.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Inbound connection 
+    Write-Info "9.2.2 (L1) Ensure 'Windows Firewall: Private: Inbound connections' is set to 'Block (default)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DefaultInboundAction" "1"
+}
+
+function PrivateDefaultOutboundAction {
+    #9.2.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Outbound connections 
+    Write-Info "9.2.3 (L1) Ensure 'Windows Firewall: Private: Outbound connections' is set to 'Allow (default)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DefaultOutboundAction" "0"
+}
+
+function PrivateDisableNotifications {
+    #9.2.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Settings Customize\Display a notification
+    Write-Info "9.2.4 (L1) Ensure 'Windows Firewall: Private: Settings: Display a notification' is set to 'No'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DisableNotifications" "1"
+}
+
+function PrivateLogFilePath {
+    #9.2.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Name
+    Write-Info "9.2.5 (L1) Ensure 'Windows Firewall: Private: Logging: Name' is set to '%SystemRoot%\System32\logfiles\firewall\privatefw.log'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\privatefw.log"
+}
+
+function PrivateLogFileSize {
+    #9.2.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Size limit (KB) 
+    Write-Info "9.2.6 (L1) Ensure 'Windows Firewall: Private: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogFileSize" "16384"
+}
+
+function PrivateLogDroppedPackets {
+    #9.2.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Log dropped packets
+    Write-Info "9.2.7 (L1) Ensure 'Windows Firewall: Private: Logging: Log dropped packets' is set to 'Yes'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogDroppedPackets" "1"
+}
+
+function PrivateLogSuccessfulConnections {
+    #9.2.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Log successful connections 
+    Write-Info "9.2.8 (L1) Ensure 'Windows Firewall: Private: Logging: Log successful connections' is set to 'Yes'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogSuccessfulConnections" "1"
+}
+
+function PublicEnableFirewall {
+    #9.3.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Firewall state
+    Write-Info "9.3.1 (L1) Ensure 'Windows Firewall: Public: Firewall state' is set to 'On (recommended)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "EnableFirewall" "1"
+}
+
+function PublicDefaultInboundAction {
+    #9.3.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Inbound connection 
+    Write-Info "9.3.2 (L1) Ensure 'Windows Firewall: Public: Inbound connections' is set to 'Block (default)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DefaultInboundAction" "1"
+}
+
+function PublicDefaultOutboundAction {
+    #9.3.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Outbound connections 
+    Write-Info "9.3.3 (L1) Ensure 'Windows Firewall: Public: Outbound connections' is set to 'Allow (default)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DefaultOutboundAction" "0"
+}
+
+function PublicDisableNotifications {
+    #9.3.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Settings Customize\Display a notification
+    Write-Info "9.3.4 (L1) Ensure 'Windows Firewall: Public: Settings: Display a notification' is set to 'No'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DisableNotifications" "1"
+}
+
+function PublicAllowLocalPolicyMerge  {
+    #9.3.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Settings Customize\Apply local firewall rules
+    Write-Info "9.3.5 (L1) Ensure 'Windows Firewall: Public: Settings: Apply local firewall rules' is set to 'No'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "PublicAllowLocalPolicyMerge" "0"
+}
+
+function PublicAllowLocalIPsecPolicyMerge {
+    #9.3.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Settings Customize\Apply local connection security rules 
+    Write-Info "9.3.6 (L1) Ensure 'Windows Firewall: Public: Settings: Apply local connection security rules' is set to 'No'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "PublicAllowLocalIPsecPolicyMerge" "0"
+}
+
+function PublicLogFilePath {
+    #9.3.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Name
+    Write-Info "9.3.7 (L1) Ensure 'Windows Firewall: Public: Logging: Name' is set to '%SystemRoot%\System32\logfiles\firewall\publicfw.log'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\publicfw.log"
+}
+
+function PublicLogFileSize {
+    #9.3.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Size limit (KB) 
+    Write-Info "9.3.8 (L1) Ensure 'Windows Firewall: Public: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogFileSize" "16384"
+}
+
+function PublicLogDroppedPackets {
+    #9.3.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Log dropped packets
+    Write-Info "9.3.9 (L1) Ensure 'Windows Firewall: Public: Logging: Log dropped packets' is set to 'Yes'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogDroppedPackets" "1"
+}
+
+function PublicLogSuccessfulConnections {
+    #9.3.10 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Log successful connections 
+    Write-Info "9.3.10 (L1) Ensure 'Windows Firewall: Public: Logging: Log successful connections' is set to 'Yes'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogSuccessfulConnections" "1"
+}
+
+function AuditCredentialValidation {
+    #17.1.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Account Logon\Audit Credential Validation
+    Write-Info "17.1.1 (L1) Ensure 'Audit Credential Validation' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable
+}
+
+function AuditComputerAccountManagement {
+    #17.2.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Account Management\Audit Application Group Management
+    Write-Info "17.2.1 (L1) Ensure 'Audit Application Group Management' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Application Group Management" /success:disable /failure:disable
+}
+
+function AuditSecurityGroupManagement {
+    #17.2.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Account Management\Audit Security Group Management
+    Write-Info "17.2.5 (L1) Ensure 'Audit Security Group Management' is set to include 'Success'"
+    Auditpol /set /subcategory:"Security Group Management" /success:enable /failure:disable
+}
+
+function AuditUserAccountManagement {
+    #17.2.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Account Management\Audit User Account Management 
+    Write-Info "17.2.6 (L1) Ensure 'Audit User Account Management' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"User Account Management" /success:enable /failure:enable
+}
+
+function AuditPNPActivity {
+    #17.3.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Detailed Tracking\Audit PNP Activity
+    Write-Info "17.3.1 (L1) Ensure 'Audit PNP Activity' is set to include 'Success'"
+    Auditpol /set /subcategory:"Plug and Play Events" /success:enable /failure:disable
+}
+
+function AuditProcessCreation {
+    #17.3.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Detailed Tracking\Audit Process Creation
+    Write-Info "17.3.2 (L1) Ensure 'Audit Process Creation' is set to include 'Success'"
+    Auditpol /set /subcategory:"Process Creation" /success:enable /failure:disable
+}
+
+function AuditAccountLockout {
+    #17.5.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\Audit Account Lockout
+    Write-Info "17.5.1 (L1) Ensure 'Audit Account Lockout' is set to include 'Failure'"
+    Auditpol /set /subcategory:"Account Lockout" /success:disable /failure:enable
+}
+
+function AuditGroupMembership  {
+    #17.5.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\Audit Group Membership
+    Write-Info "17.5.2 (L1) Ensure 'Audit Group Membership' is set to include 'Success'"
+    Auditpol /set /subcategory:"Group Membership" /success:enable /failure:disable
+}
+
+function AuditLogoff {
+    #17.5.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\Audit Logoff
+    Write-Info "17.5.3 (L1) Ensure 'Audit Logoff' is set to include 'Success'"
+    Auditpol /set /subcategory:"Logoff" /success:enable /failure:disable
+}
+
+function AuditLogon {
+    #17.5.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\Audit Logon 
+    Write-Info "17.5.4 (L1) Ensure 'Audit Logon' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Logon" /success:enable /failure:enable
+} 
+
+function AuditOtherLogonLogoffEvents {
+    #17.5.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\Audit Other Logon/Logoff Events
+    Write-Info "17.5.5 (L1) Ensure 'Audit Other Logon/Logoff Events' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Other Logon/Logoff Events" /success:enable /failure:enable
+}
+
+function AuditSpecialLogon {
+    #17.5.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Logon/Logoff\Audit Special Logon
+    Write-Info "17.5.6 (L1) Ensure 'Audit Special Logon' is set to include 'Success'"
+    Auditpol /set /subcategory:"Special Logon" /success:enable /failure:disable
+}
+
+function AuditDetailedFileShare {
+    #17.6.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Object Access\Audit Detailed File Share
+    Write-Info "17.6.1 (L1) Ensure 'Audit Detailed File Share' is set to include 'Failure'"
+    Auditpol /set /subcategory:"Detailed File Share" /success:disable /failure:enable
+}
+
+function AuditFileShare {
+    #17.6.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Object Access\Audit File Share 
+    Write-Info "17.6.2 (L1) Ensure 'Audit File Share' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"File Share" /success:enable /failure:enable
+}
+
+function AuditOtherObjectAccessEvents {
+    #17.6.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Object Access\Audit Other Object Access Events 
+    Write-Info "17.6.3 (L1) Ensure 'Audit Other Object Access Events' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Other Object Access Events" /success:enable /failure:enable
+}
+
+function AuditRemovableStorage {
+    #17.6.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Object Access\Audit Removable Storage 
+    Write-Info "17.6.4 (L1) Ensure 'Audit Removable Storage' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Removable Storage" /success:enable /failure:enable
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 if(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
