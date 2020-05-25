@@ -4,10 +4,9 @@
 
 ##########################################################################################################
 $LogonLegalNoticeMessageTitle = "Warning Notice:"
-$LogonLegalNoticeMessage = "You are about to enter a private network intended for the authorized users only. The use of this system may be,monitored and/or recorded for administrative and security reasons in,accordance with applicable law and policies."
+$LogonLegalNoticeMessage = "You are about to enter a private network intended for the authorized users only. The use of this system may be monitored and/or recorded for administrative, and security reasons in accordance with, applicable law and policies."
 
 #IF YOU HAVE SPECIAL SECURITY REQUIREMENTS YOU CAN DISABLE POLICIES BELLOW
-
 $ExecutionList = @(
     #KEEP THESE IN THE BEGINING
     "RenameAdministratorAccount", #2.3.1.5 
@@ -185,7 +184,103 @@ $ExecutionList = @(
     "AuditFileShare", #17.6.2
     "AuditOtherObjectAccessEvents", #17.6.3
     "AuditRemovableStorage", #17.6.4
-    ""
+    "AuditPolicyChange", #17.7.1
+    "AuditAuthenticationPolicyChange",  #17.7.2
+    "AuditAuthorizationPolicyChange",   #17.7.3
+    "AuditMPSSVCRuleLevelPolicyChange", #17.7.4
+    "AuditOtherPolicyChangeEvents", #17.7.5
+    "AuditSpecialLogon", #17.8.1
+	"AuditIPsecDriver", #17.9.1
+	"AuditOtherSystemEvents", #17.9.2
+	"AuditSecurityStateChange", #17.9.3
+	"AuditSecuritySystemExtension", #17.9.4
+	"AuditSystemIntegrity", #17.9.5
+	"PreventEnablingLockScreenCamera", #18.1.1.1
+	"PreventEnablingLockScreenSlideShow", #18.1.1.2
+	"DisallowUsersToEnableOnlineSpeechRecognitionServices", #18.1.2.1
+	"DisallowOnlineTips", #18.1.3
+    #18.2.1 to 12.2.6 Not Applicable to Server outside AD Domain
+	"LocalAccountTokenFilterPolicy", #18.3.1
+	"ConfigureSMBv1ClientDriver", #18.3.2
+	"ConfigureSMBv1server", #18.3.3
+	"DisableExceptionChainValidation", #18.3.4
+	#18.3.5 Not Applicable to Member Server
+	"WDigestUseLogonCredential", #18.3.6
+	"WinlogonAutoAdminLogon", #18.4.1
+	"DisableIPv6SourceRouting", #18.4.2
+	"DisableIPv4SourceRouting", #18.4.3
+	"EnableICMPRedirect", #18.4.4
+	"TcpIpKeepAliveTime", #18.4.5
+	"NoNameReleaseOnDemand", #18.4.6
+	"PerformRouterDiscovery", #18.4.7
+	"SafeDllSearchMode", #18.4.8
+	"ScreenSaverGracePeriod", #18.4.9
+	"TcpMaxDataRetransmissionsV6", #18.4.10
+	"TcpMaxDataRetransmissions", #18.4.11
+	"SecurityWarningLevel", #18.4.12
+	"NetBIOSNodeType", #18.5.4.1
+	"EnableMulticast", #18.5.4.2
+	"EnableFontProviders", #18.5.5.1
+	"AllowInsecureGuestAuth", #18.5.8.1
+	"LLTDIODisabled", #18.5.9.1
+	"RSPNDRDisabled", #18.5.9.2
+	"PeernetDisabled", #18.5.10.2
+	"DisableNetworkBridges", #18.5.11.2
+	"ProhibitInternetConnectionSharing", #18.5.11.3
+	"StdDomainUserSetLocation", #18.5.11.4
+	"HardenedPaths", #18.5.14.1
+	"DisableIPv6DisabledComponents", #18.5.19.2.1
+	"DisableConfigurationWirelessSettings", #18.5.20.1
+	"ProhibitaccessWCNwizards", #18.5.20.2
+	"fMinimizeConnections", #18.5.21.1
+	"fBlockNonDomain", #18.5.21.2
+	"NoCloudApplicationNotification", #18.7.1.1
+	"ProcessCreationIncludeCmdLine", #18.8.3.1
+	"EncryptionOracleRemediation", #18.8.4.1
+	"AllowProtectedCreds", #18.8.4.2
+	"EnableVirtualizationBasedSecurity", #18.8.5.1
+	"RequirePlatformSecurityFeatures", #18.8.5.2
+	"HypervisorEnforcedCodeIntegrity", #18.8.5.3
+	"HVCIMATRequired", #18.8.5.4
+	"LsaCfgFlags", #18.8.5.5
+	"ConfigureSystemGuardLaunch", #18.8.6.7
+	"DriverLoadPolicy", #18.8.14.1
+	"NoBackgroundPolicy", #18.8.21.2
+	"NoGPOListChanges", #18.8.21.3
+	"EnableCdp", #18.8.21.4
+	"DisableBkGndGroupPolicy", #18.8.21.5
+	"DisableWebPnPDownload", #18.8.22.1.1
+	"PreventHandwritingDataSharing", #18.8.22.1.2
+	"PreventHandwritingErrorReports", #18.8.22.1.3
+	"ExitOnMSICW", #18.8.22.1.4
+	"NoWebServices", #18.8.22.1.5
+	"DisableHTTPPrinting", #18.8.22.1.6
+	"NoRegistration", #18.8.22.1.7
+	"DisableContentFileUpdates", #18.8.22.1.8
+	"NoOnlinePrintsWizard", #18.8.22.1.9
+	"NoPublishingWizard", #18.8.22.1.10
+	"CEIP", #18.8.22.1.11
+	"CEIPEnable", #18.8.22.1.2
+	"TurnoffWindowsErrorReporting", #18.8.22.1.13
+	"SupportDeviceAuthenticationUsingCertificate", #18.8.25.1
+	"DeviceEnumerationPolicy", #18.8.26.1
+	"BlockUserInputMethodsForSignIn", #18.8.27.1
+	"BlockUserFromShowingAccountDetailsOnSignin", #18.8.28.1
+	"DontDisplayNetworkSelectionUI", #18.8.28.2
+	"DontEnumerateConnectedUsers", #18.8.28.3
+	"EnumerateLocalUsers", #18.8.28.4
+	"DisableLockScreenAppNotifications", #18.8.28.5
+	"BlockDomainPicturePassword", #18.8.28.6
+	"AllowDomainPINLogon", #18.8.28.7
+	"AllowCrossDeviceClipboard", #18.8.31.1
+	"UploadUserActivities", #18.8.31.2
+	"AllowNetworkBatteryStandby", #18.8.34.6.1
+	"AllowNetworkACStandby", #18.8.34.6.2
+	"RequirePasswordWakes", #18.8.34.6.3
+	"RequirePasswordWakesAC", #18.8.34.6.4
+	"fAllowUnsolicited", #18.8.36.1
+	"fAllowToGetHelp" #, #18.8.36.2
+	"EnableAuthEpResolution"
 )
 
 
@@ -223,6 +318,17 @@ $SID_BACKUP_OPERATORS = "S-1-5-32-551"
 
 ##########################################################################################################
 
+#Registry Key Types
+
+$REG_SZ = "String"
+$REG_EXPAND_SZ = "ExpandString"
+$REG_BINARY = "Binary"
+$REG_DWORD = "DWord"
+$REG_MULTI_SZ = "MultiString"
+$REG_QWORD = "Qword"
+
+##########################################################################################################
+
 $fc = $host.UI.RawUI.ForegroundColor
 $host.UI.RawUI.ForegroundColor = "white"
 
@@ -238,14 +344,63 @@ function Write-After($text) {
     Write-Host $text -ForegroundColor Green
 }
 
+function CheckError([bool] $result, [string] $message) {
+	# Checks the specified result value and terminates the
+	# the script after printing the specified error message 
+	# if the specified result is false.
+    if ($result -eq $false) {
+        Write-Host $message -ForegroundColor Red
+        exit
+    }
+}
+
 Write-Info "CIS Microsoft Windows Server 2019 RTM Benchmark"
 Write-Info "Script written and tested by Vinicius Miguel"
 
-function SetRegistry([string] $path, [string] $key, [string] $value) {
-    $before = Get-ItemProperty -Path $path -Name $key
-    Write-Before "Was: $($before.$key)"
-    Set-ItemProperty -Path $path -Name $key -Value $value
-    $after = Get-ItemProperty -Path $path -Name $key
+function RegKeyExists([string] $path) {
+	# Checks whether the specified registry key exists
+	$result = Get-Item $path -ErrorAction SilentlyContinue
+	$?
+}
+
+function SetRegistry([string] $path, [string] $key, [string] $value, [string] $keytype) {
+	# Sets the specified registry value at the specified registry path to the specified value.
+	# First the original value is read and print to the console.
+	# If the original value does not exist, it is additionally checked
+	# whether the according registry key is missing too.
+	# If it is missing, the key is also created otherwise the 
+	# Set-ItemProperty call would fail.
+	#
+	# The original implementation used try-catch to handle the errors
+	# of Get-ItemProperty for missing values. However, Set-ItemProperty
+	# is not throwing any exceptions. The error handling has to be done
+	# by overwriting the -ErrorAction of the CmdLet and check the
+	# $? variable afterwards.
+	#
+	# See: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_commonparameters?view=powershell-7
+	# See: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables?view=powershell-7
+
+    $before = Get-ItemProperty -Path $path -Name $key -ErrorAction SilentlyContinue
+	
+	if ($?) {
+		Write-Before "Was: $($before.$key)"
+	}
+	else {
+        Write-Before "Was: Not Defined!"
+		$keyExists = RegKeyExists $path
+		
+		if ($keyExists -eq $false) {
+            Write-Info "Creating registry key '$($path)'."
+			New-Item $path -Force -ErrorAction SilentlyContinue
+            CheckError $? "Creating registry key '$($path)' failed."
+		}
+	}
+
+    Set-ItemProperty -Path $path -Name $key -Value $value -Type $keytype -ErrorAction SilentlyContinue
+
+    CheckError $? "Creating registry value '$($path):$($value)' failed."
+    
+    $after = Get-ItemProperty -Path $path -Name $key -ErrorAction SilentlyContinue
     Write-After "Now is: $($after.$key)"
 }
 
@@ -253,7 +408,7 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
     $valueSet = $false
 
     if($values -eq $null) {
-        Write-Error "SetUserRight: At least one value must be provided to set the role:$($role)"
+        Write-Error "SetSecEdit: At least one value must be provided to set the role:$($role)"
         return
     }
     
@@ -262,6 +417,8 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
     }
 
     secedit /export /cfg ${env:appdata}\secpol.cfg /areas $area
+	CheckError $? "Exporting '$($area)' to $(${env:appdata})\secpol.cfg' failed."
+	
     $lines = Get-Content ${env:appdata}\secpol.cfg
     
     $config = "$($role)= "
@@ -292,6 +449,8 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
 
     $lines | out-file ${env:appdata}\secpol.cfg
     secedit /configure /db c:\windows\security\local.sdb /cfg ${env:appdata}\secpol.cfg /areas $area
+	CheckError $? "Configuring '$($area)' via $(${env:appdata})\secpol.cfg' failed."
+	
     rm -force ${env:appdata}\secpol.cfg -confirm:$false
 }
 
@@ -759,7 +918,7 @@ function LogonLegalNotice {
 function LogonLegalNoticeTitle {
     #2.3.7.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Message title for users attempting to log on
     Write-Info "2.3.7.5 (L1) Configure 'Interactive logon: Message title for users attempting to log on'"
-    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption" (,"1,`"$($LogonLegalNoticeMessage)`"")
+    SetSecurityPolicy "MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\LegalNoticeCaption" (,"1,`"$($LogonLegalNoticeMessageTitle)`"")
 }
 
 function PreviousLogonCache {
@@ -1045,157 +1204,157 @@ function EnableVirtualization {
 function DomainEnableFirewall {
     #9.1.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Firewall state
     Write-Info "9.1.1 (L1) Ensure 'Windows Firewall: Domain: Firewall state' is set to 'On (recommended)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "EnableFirewall" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "EnableFirewall" "1" $REG_DWORD
 }
 
 function DomainDefaultInboundAction {
     #9.1.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Inbound connection 
     Write-Info "9.1.2 (L1) Ensure 'Windows Firewall: Domain: Inbound connections' is set to 'Block (default)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DefaultInboundAction" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DefaultInboundAction" "1" $REG_DWORD
 }
 
 function DomainDefaultOutboundAction {
     #9.1.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Outbound connections 
     Write-Info "9.1.3 (L1) Ensure 'Windows Firewall: Domain: Outbound connections' is set to 'Allow (default)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DefaultOutboundAction" "0"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DefaultOutboundAction" "0" $REG_DWORD
 }
 
 function DomainDisableNotifications {
     #9.1.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Settings Customize\Display a notification
     Write-Info "9.1.4 (L1) Ensure 'Windows Firewall: Domain: Settings: Display a notification' is set to 'No'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DisableNotifications" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" "DisableNotifications" "1" $REG_DWORD
 }
 
 function DomainLogFilePath {
     #9.1.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Name
     Write-Info "9.1.5 (L1) Ensure 'Windows Firewall: Domain: Logging: Name' is set to '%SystemRoot%\System32\logfiles\firewall\domainfw.log'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\domainfw.log"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\domainfw.log" $REG_SZ
 }
 
 function DomainLogFileSize {
     #9.1.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Size limit (KB) 
     Write-Info "9.1.6 (L1) Ensure 'Windows Firewall: Domain: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogFileSize" "16384"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogFileSize" "16384" $REG_DWORD
 }
 
 function DomainLogDroppedPackets {
     #9.1.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Log dropped packets
     Write-Info "9.1.7 (L1) Ensure 'Windows Firewall: Domain: Logging: Log dropped packets' is set to 'Yes'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogDroppedPackets" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogDroppedPackets" "1" $REG_DWORD
 }
 
 function DomainLogSuccessfulConnections {
     #9.1.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Domain Profile\Logging Customize\Log successful connections 
     Write-Info "9.1.8 (L1) Ensure 'Windows Firewall: Domain: Logging: Log successful connections' is set to 'Yes'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogSuccessfulConnections" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" "LogSuccessfulConnections" "1" $REG_DWORD
 }
 
 function PrivateEnableFirewall {
     #9.2.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Firewall state
     Write-Info "9.2.1 (L1) Ensure 'Windows Firewall: Private: Firewall state' is set to 'On (recommended)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "EnableFirewall" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "EnableFirewall" "1" $REG_DWORD
 }
 
 function PrivateDefaultInboundAction {
     #9.2.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Inbound connection 
     Write-Info "9.2.2 (L1) Ensure 'Windows Firewall: Private: Inbound connections' is set to 'Block (default)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DefaultInboundAction" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DefaultInboundAction" "1" $REG_DWORD
 }
 
 function PrivateDefaultOutboundAction {
     #9.2.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Outbound connections 
     Write-Info "9.2.3 (L1) Ensure 'Windows Firewall: Private: Outbound connections' is set to 'Allow (default)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DefaultOutboundAction" "0"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DefaultOutboundAction" "0" $REG_DWORD
 }
 
 function PrivateDisableNotifications {
     #9.2.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Settings Customize\Display a notification
     Write-Info "9.2.4 (L1) Ensure 'Windows Firewall: Private: Settings: Display a notification' is set to 'No'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DisableNotifications" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" "DisableNotifications" "1" $REG_DWORD
 }
 
 function PrivateLogFilePath {
     #9.2.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Name
     Write-Info "9.2.5 (L1) Ensure 'Windows Firewall: Private: Logging: Name' is set to '%SystemRoot%\System32\logfiles\firewall\privatefw.log'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\privatefw.log"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\privatefw.log" $REG_SZ
 }
 
 function PrivateLogFileSize {
     #9.2.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Size limit (KB) 
     Write-Info "9.2.6 (L1) Ensure 'Windows Firewall: Private: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogFileSize" "16384"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogFileSize" "16384" $REG_DWORD
 }
 
 function PrivateLogDroppedPackets {
     #9.2.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Log dropped packets
     Write-Info "9.2.7 (L1) Ensure 'Windows Firewall: Private: Logging: Log dropped packets' is set to 'Yes'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogDroppedPackets" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogDroppedPackets" "1" $REG_DWORD
 }
 
 function PrivateLogSuccessfulConnections {
     #9.2.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Private Profile\Logging Customize\Log successful connections 
     Write-Info "9.2.8 (L1) Ensure 'Windows Firewall: Private: Logging: Log successful connections' is set to 'Yes'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogSuccessfulConnections" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" "LogSuccessfulConnections" "1" $REG_DWORD
 }
 
 function PublicEnableFirewall {
     #9.3.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Firewall state
     Write-Info "9.3.1 (L1) Ensure 'Windows Firewall: Public: Firewall state' is set to 'On (recommended)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "EnableFirewall" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "EnableFirewall" "1" $REG_DWORD
 }
 
 function PublicDefaultInboundAction {
     #9.3.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Inbound connection 
     Write-Info "9.3.2 (L1) Ensure 'Windows Firewall: Public: Inbound connections' is set to 'Block (default)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DefaultInboundAction" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DefaultInboundAction" "1" $REG_DWORD
 }
 
 function PublicDefaultOutboundAction {
     #9.3.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Outbound connections 
     Write-Info "9.3.3 (L1) Ensure 'Windows Firewall: Public: Outbound connections' is set to 'Allow (default)'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DefaultOutboundAction" "0"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DefaultOutboundAction" "0" $REG_DWORD
 }
 
 function PublicDisableNotifications {
     #9.3.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Settings Customize\Display a notification
     Write-Info "9.3.4 (L1) Ensure 'Windows Firewall: Public: Settings: Display a notification' is set to 'No'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DisableNotifications" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "DisableNotifications" "1" $REG_DWORD
 }
 
 function PublicAllowLocalPolicyMerge  {
     #9.3.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Settings Customize\Apply local firewall rules
     Write-Info "9.3.5 (L1) Ensure 'Windows Firewall: Public: Settings: Apply local firewall rules' is set to 'No'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "PublicAllowLocalPolicyMerge" "0"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "PublicAllowLocalPolicyMerge" "0" $REG_DWORD
 }
 
 function PublicAllowLocalIPsecPolicyMerge {
     #9.3.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Settings Customize\Apply local connection security rules 
     Write-Info "9.3.6 (L1) Ensure 'Windows Firewall: Public: Settings: Apply local connection security rules' is set to 'No'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "PublicAllowLocalIPsecPolicyMerge" "0"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" "PublicAllowLocalIPsecPolicyMerge" "0" $REG_DWORD
 }
 
 function PublicLogFilePath {
     #9.3.7 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Name
     Write-Info "9.3.7 (L1) Ensure 'Windows Firewall: Public: Logging: Name' is set to '%SystemRoot%\System32\logfiles\firewall\publicfw.log'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\publicfw.log"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogFilePath" "%SystemRoot%\System32\logfiles\firewall\publicfw.log" $REG_SZ
 }
 
 function PublicLogFileSize {
     #9.3.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Size limit (KB) 
     Write-Info "9.3.8 (L1) Ensure 'Windows Firewall: Public: Logging: Size limit (KB)' is set to '16,384 KB or greater'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogFileSize" "16384"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogFileSize" "16384" $REG_DWORD
 }
 
 function PublicLogDroppedPackets {
     #9.3.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Log dropped packets
     Write-Info "9.3.9 (L1) Ensure 'Windows Firewall: Public: Logging: Log dropped packets' is set to 'Yes'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogDroppedPackets" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogDroppedPackets" "1" $REG_DWORD
 }
 
 function PublicLogSuccessfulConnections {
     #9.3.10 => Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall with Advanced Security\Windows Firewall with Advanced Security\Windows Firewall Properties\Public Profile\Logging Customize\Log successful connections 
     Write-Info "9.3.10 (L1) Ensure 'Windows Firewall: Public: Logging: Log successful connections' is set to 'Yes'"
-    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogSuccessfulConnections" "1"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" "LogSuccessfulConnections" "1" $REG_DWORD
 }
 
 function AuditCredentialValidation {
@@ -1294,15 +1453,1145 @@ function AuditRemovableStorage {
     Auditpol /set /subcategory:"Removable Storage" /success:enable /failure:enable
 }
 
+function AuditPolicyChange {
+    #17.7.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Policy Change\Audit Audit Policy Change
+    Write-Info "17.7.1 (L1) Ensure 'Audit Audit Policy Change' is set to include 'Success'"
+    Auditpol /set /subcategory:"Audit Policy Change" /success:enable /failure:disable
+}
 
+function AuditAuthenticationPolicyChange {
+    #17.7.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Policy Change\Audit Authentication Policy Change 
+    Write-Info "17.7.2 (L1) Ensure 'Audit Authentication Policy Change' is set to include 'Success'"
+    Auditpol /set /subcategory:"Authentication Policy Change" /success:enable /failure:disable
+}
 
+function AuditAuthorizationPolicyChange {
+    #17.7.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Policy Change\Audit Authorization Policy Change 
+    Write-Info "17.7.3 (L1) Ensure 'Audit Authorization Policy Change' is set to include 'Success'"
+    Auditpol /set /subcategory:"Authorization Policy Change" /success:enable /failure:disable
+}
 
+function AuditMPSSVCRuleLevelPolicyChange {
+    #17.7.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Policy Change\Audit MPSSVC RuleLevel Policy Change
+    Write-Info "17.7.4 (L1) Ensure 'Audit MPSSVC Rule-Level Policy Change' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /failure:enable
+}
 
+function AuditOtherPolicyChangeEvents {
+    #17.7.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Policy Change\Audit Other Policy Change Events
+    Write-Info "17.7.5 (L1) Ensure 'Audit Other Policy Change Events' is set to include 'Failure'"
+    Auditpol /set /subcategory:"Other Policy Change Events" /success:disable /failure:enable
+}
 
+function AuditSpecialLogon {
+    #17.8.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\Privilege Use\Audit Sensitive Privilege Use 
+    Write-Info "17.8.1 (L1) Ensure 'Audit Sensitive Privilege Use' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Sensitive Privilege Use" /success:enable /failure:enable
+}
 
+function AuditIPsecDriver  {
+    #17.9.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\System\Audit IPsec Driver
+    Write-Info "17.9.1 (L1) Ensure 'Audit IPsec Driver' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"IPsec Driver" /success:enable /failure:enable
+}
 
+function AuditOtherSystemEvents  {
+    #17.9.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\System\Audit Other System Events
+    Write-Info "17.9.2 (L1) Ensure 'Audit Other System Events' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"Other System Events" /success:enable /failure:enable
+}
 
+function AuditSecurityStateChange {
+    #17.9.3 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\System\Audit Security State Change 
+    Write-Info "17.9.3 (L1) Ensure 'Audit Security State Change' is set to include 'Success'"
+    Auditpol /set /subcategory:"Security State Change" /success:enable /failure:disable
+}
 
+function AuditSecuritySystemExtension {
+    #17.9.4 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\System\Audit Security System Extension 
+    Write-Info "17.9.4 (L1) Ensure 'Audit Security System Extension' is set to include 'Success'"
+    Auditpol /set /subcategory:"Security System Extension" /success:enable /failure:disable
+}
+
+function AuditSystemIntegrity {
+    #17.9.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Advanced Audit Policy Configuration\Audit Policies\System\Audit System Integrity
+    Write-Info "17.9.5 (L1) Ensure 'Audit System Integrity' is set to 'Success and Failure'"
+    Auditpol /set /subcategory:"System Integrity" /success:enable /failure:enable
+}
+
+function PreventEnablingLockScreenCamera {
+    #18.1.1.1 => Computer Configuration\Policies\Administrative Templates\Control Panel\Personalization\Prevent enabling lock screen camera 
+    Write-Info "18.1.1.1 (L1) Ensure 'Prevent enabling lock screen camera' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" "NoLockScreenCamera" "1" $REG_DWORD
+}
+
+function PreventEnablingLockScreenSlideShow {
+    #18.1.1.2 => Computer Configuration\Policies\Administrative Templates\Control Panel\Personalization\Prevent enabling lock screen slide show
+    Write-Info "18.1.1.2 (L1) Ensure 'Prevent enabling lock screen slide show' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" "NoLockScreenSlideshow" "1" $REG_DWORD
+}
+
+function DisallowUsersToEnableOnlineSpeechRecognitionServices {
+    #18.1.2.1 => Computer Configuration\Policies\Administrative Templates\Control Panel\Regional and Language Options\Allow users to enable online speech recognition services
+    Write-Info "18.1.2.2 (L1) Ensure 'Allow users to enable online speech recognition services' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\InputPersonalization" "AllowInputPersonalization" "0" $REG_DWORD
+}
+
+function DisallowOnlineTips  {
+    #18.1.3 => Computer Configuration\Policies\Administrative Templates\Control Panel\Allow Online Tips 
+    Write-Info "18.1.3 (L2) Ensure 'Allow Online Tips' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "AllowOnlineTips" "0" $REG_DWORD
+}
+
+function LocalAccountTokenFilterPolicy {
+    #18.3.1 => Computer Configuration\Policies\Administrative Templates\MS Security Guide\Apply UAC restrictions to local accounts on network logons 
+    Write-Info "18.3.1 (L1) Ensure 'Apply UAC restrictions to local accounts on network logons' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "LocalAccountTokenFilterPolicy" "1" $REG_DWORD
+}
+
+function ConfigureSMBv1ClientDriver  {
+    #18.3.2 => Computer Configuration\Policies\Administrative Templates\MS Security Guide\Configure SMB v1 client driver 
+    Write-Info "18.3.2 (L1) Ensure 'Configure SMB v1 client driver' is set to 'Enabled: Disable driver (recommended)"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\mrxsmb1" "Start" "1" $REG_DWORD
+}
+
+function ConfigureSMBv1server {
+    #18.3.3 => Computer Configuration\Policies\Administrative Templates\MS Security Guide\Configure SMB v1 server
+    Write-Info "18.3.3 (L1) Ensure 'Configure SMB v1 server' is set to 'Disabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" "SMB1" "0" $REG_DWORD
+}
+
+function DisableExceptionChainValidation {
+    #18.3.4 => Computer Configuration\Policies\Administrative Templates\MS Security Guide\Enable Structured Exception Handling Overwrite Protection (SEHOP)
+    Write-Info "18.3.4 (L1) Ensure 'Enable Structured Exception Handling Overwrite Protection (SEHOP)' is set to 'Enabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" "DisableExceptionChainValidation" "1" $REG_DWORD
+}
+
+function WDigestUseLogonCredential   {
+    #18.3.6 => Computer Configuration\Policies\Administrative Templates\MS Security Guide\WDigest Authentication (disabling may require KB2871997)
+    Write-Info "18.3.6 (L1) Ensure 'WDigest Authentication' is set to 'Disabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" "UseLogonCredential" "0" $REG_DWORD
+}
+
+# MSS Group Policies are not supported by GPEDIT anymore. the values must be ckecked directly on the registry
+
+function WinlogonAutoAdminLogon {
+    #18.4.1 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)
+    Write-Info "18.4.1 (L1) Ensure 'MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" "AutoAdminLogon" "0" $REG_DWORD
+}
+
+function DisableIPv6SourceRouting {
+    #18.4.2 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing) 
+    Write-Info "18.4.2 (L1) Ensure 'MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)' is set to 'Enabled: Highest protection, source routing is completely disabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" "DisableIPSourceRouting" "1" $REG_DWORD
+}
+
+function DisableIPv4SourceRouting {
+    #18.4.3 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)
+    Write-Info "18.4.3 (L1) Ensure 'MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)' is set to 'Enabled: Highest protection, source routing is completely disabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" "DisableIPSourceRouting" "1" $REG_DWORD
+}
+
+function EnableICMPRedirect {
+    #18.4.4 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes
+    Write-Info "18.4.4 (L1) Ensure 'MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes' is set to 'Disabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" "EnableICMPRedirect" "0"  $REG_DWORD
+}
+
+function TcpIpKeepAliveTime {
+    #18.4.5 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds 
+    Write-Info "18.4.5 (L2) Ensure 'MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds' is set to 'Enabled: 300,000 or 5 minutes (recommended)'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" "KeepAliveTime" "300000"  $REG_DWORD
+}
+
+function NoNameReleaseOnDemand {
+    #18.4.6 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers
+    Write-Info "18.4.6 (L1) Ensure 'MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers' is set to 'Enabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters" "NoNameReleaseOnDemand" "1" $REG_DWORD
+}
+
+function PerformRouterDiscovery {
+    #18.4.7 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS) 
+    Write-Info "18.4.7 (L2) Ensure 'MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure Default Gateway addresses (could lead to DoS)' is set to 'Disabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" "PerformRouterDiscovery" "0" $REG_DWORD
+}
+
+function SafeDllSearchMode {
+    #18.4.8 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)
+    Write-Info "18.4.8 (L1) Ensure 'MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)' is set to 'Enabled'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Control\SessionManager" "SafeDllSearchMode" "1" $REG_DWORD
+}
+
+function ScreenSaverGracePeriod {
+    #18.4.9 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires (0 recommended) 
+    Write-Info "18.4.9 (L1) Ensure 'MSS: (ScreenSaverGracePeriod) The time in seconds before the screen saver grace period expires (0 recommended)' is set to 'Enabled: 5 or fewer seconds'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" "ScreenSaverGracePeriod" "5" $REG_DWORD
+}
+
+function TcpMaxDataRetransmissionsV6 {
+    #18.4.10 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS:(TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted
+    Write-Info "18.4.10 (L2) Ensure 'MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged data is retransmitted' is set to 'Enabled: 3'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\TCPIP6\Parameters" "TcpMaxDataRetransmissions" "3" $REG_DWORD
+}
+
+function TcpMaxDataRetransmissions {
+    #18.4.11 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS:(TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted
+    Write-Info "18.4.11 (L2) Ensure 'MSS: (TcpMaxDataRetransmissions) How many times unacknowledged data is retransmitted' is set to 'Enabled: 3'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" "TcpMaxDataRetransmissions" "3" $REG_DWORD
+}
+
+function SecurityWarningLevel {
+    #18.4.12 => Computer Configuration\Policies\Administrative Templates\MSS (Legacy)\MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning 
+    Write-Info "18.4.12 (L1) Ensure 'MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning' is set to 'Enabled: 90% or less'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\Eventlog\Security" "WarningLevel" "90" $REG_DWORD
+}
+
+function NetBIOSNodeType {
+    #18.5.4.1 => Navigate to the Registry path articulated in the Remediation section and confirm it is set as prescribed. 
+    Write-Info "18.5.4.1 (L1) Set 'NetBIOS node type' to 'P-node' (Ensure NetBT Parameter 'NodeType' is set to '0x2 (2)')"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters" "NodeType" "2" $REG_DWORD
+}
+
+function EnableMulticast {
+    #18.5.4.2 => Computer Configuration\Policies\Administrative Templates\Network\DNS Client\Turn off multicast name resolution 
+    Write-Info "18.5.4.2 (L1) Ensure 'Turn off multicast name resolution' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" "EnableMulticast" "0" $REG_DWORD
+}
+
+function EnableFontProviders {
+    #18.5.5.1 => Computer Configuration\Policies\Administrative Templates\Network\Fonts\Enable Font Providers
+    Write-Info "18.5.5.1 (L2) Ensure 'Enable Font Providers' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "EnableFontProviders" "0" $REG_DWORD
+}
+
+function AllowInsecureGuestAuth {
+    #18.5.8.1 => Computer Configuration\Policies\Administrative Templates\Network\Lanman Workstation\Enable insecure guest logons 
+    Write-Info "18.5.8.1 (L1) Ensure 'Enable insecure guest logons' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation" "AllowInsecureGuestAuth" "0" $REG_DWORD
+}
+
+function LLTDIODisabled {
+    #18.5.9.1 => Computer Configuration\Policies\Administrative Templates\Network\Link-Layer Topology Discovery\Turn on Mapper I/O (LLTDIO) driver
+    Write-Info "18.5.9.1 (L2) Ensure 'Turn on Mapper I/O (LLTDIO) driver' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "AllowLLTDIOOnDomain" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "AllowLLTDIOOnPublicNet" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "EnableLLTDIO" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "ProhibitLLTDIOOnPrivateNet " "0" $REG_DWORD
+}
+
+function RSPNDRDisabled {
+    #18.5.9.2 => Computer Configuration\Policies\Administrative Templates\Network\Link-Layer Topology Discovery\Turn on Responder (RSPNDR) driver
+    Write-Info "18.5.9.2 (L2) Ensure 'Turn on Responder (RSPNDR) driver' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "AllowRspndrOnDomain" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "AllowRspndrOnPublicNet" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "EnableRspndr" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LLTD" "ProhibitRspndrOnPrivateNet" "0" $REG_DWORD
+}
+
+function PeernetDisabled {
+    #18.5.10.2 => Computer Configuration\Policies\Administrative Templates\Network\Microsoft Peer-to-Peer Networking Services\Turn off Microsoft Peer-to-Peer Networking Services
+    Write-Info "18.5.10.2 (L2) Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Peernet" "Disabled" "1"  $REG_DWORD
+}
+
+function DisableNetworkBridges {
+    #18.5.11.2 => Computer Configuration\Policies\Administrative Templates\Network\Network Connections\Prohibit installation and configuration of Network Bridge on your DNS domain network 
+    Write-Info "18.5.11.2 (L1) Ensure 'Prohibit installation and configuration of Network Bridge on your DNS domain network' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections" "NC_AllowNetBridge_NLA" "0"  $REG_DWORD
+}
+
+function ProhibitInternetConnectionSharing {
+    #18.5.11.3 => Computer Configuration\Policies\Administrative Templates\Network\Network Connections\Prohibit use of Internet Connection Sharing on your DNS domain network
+    Write-Info "18.5.11.3 (L1) Ensure 'Prohibit use of Internet Connection Sharing on your DNS domain network' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections" "NC_ShowSharedAccessUI" "0"  $REG_DWORD
+}
+
+function StdDomainUserSetLocation {
+    #18.5.11.4 => Computer Configuration\Policies\Administrative Templates\Network\Network Connections\Require domain users to elevate when setting a network's location 
+    Write-Info "18.5.11.4 (L1) Ensure 'Require domain users to elevate when setting a network's location' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections" "NC_StdDomainUserSetLocation" "1" $REG_DWORD
+}
+
+function HardenedPaths {
+    #18.5.14.1 => Computer Configuration\Policies\Administrative Templates\Network\Network Provider\Hardened UNC Paths
+    Write-Info "18.5.14.1 (L1) Ensure 'Hardened UNC Paths' is set to 'Enabled, with "Require Mutual Authentication" and "Require Integrity" set for all NETLOGON and SYSVOL shares'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" "\\*\NETLOGON" "RequireMutualAuthentication=1, RequireIntegrity=1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" "\\*\SYSVOL" "RequireMutualAuthentication=1, RequireIntegrity=1" $REG_SZ
+}
+
+function DisableIPv6DisabledComponents {
+    #18.5.19.2.1 => Navigate to the Registry path articulated in the Remediation section and confirm it is set as prescribed. 
+    Write-Info "18.5.19.2.1 (L2) Disable IPv6 (Ensure TCPIP6 Parameter 'DisabledComponents' is set to '0xff (255)')"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Services\TCPIP6\Parameters" "DisabledComponents" "255"  $REG_DWORD
+}
+
+function DisableConfigurationWirelessSettings {
+    #18.5.20.1 => Computer Configuration\Policies\Administrative Templates\Network\Windows Connect Now\Configuration of wireless settings using Windows Connect Now 
+    Write-Info "18.5.20.1 (L2) Ensure 'Configuration of wireless settings using Windows Connect Now' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" "EnableRegistrars" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" "DisableUPnPRegistrar" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" "DisableInBand802DOT11Registrar" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" "DisableFlashConfigRegistrar" "0" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars" "DisableWPDRegistrar" "0" $REG_DWORD
+}
+
+function ProhibitaccessWCNwizards {
+    #18.5.20.2 => Computer Configuration\Policies\Administrative Templates\Network\Windows Connect Now\Prohibit access of the Windows Connect Now wizards
+    Write-Info "18.5.20.2 (L2) Ensure 'Prohibit access of the Windows Connect Now wizards' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WCN\UI" "DisableWcnUi" "1"  $REG_DWORD
+}
+
+function fMinimizeConnections {
+    #18.5.21.1 => Computer Configuration\Policies\Administrative Templates\Network\Windows Connection Manager\Minimize the number of simultaneous connections to the Internet or a Windows Domain 
+    Write-Info "18.5.21.1 (L1) Ensure 'Minimize the number of simultaneous connections to the Internet or a Windows Domain' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" "fMinimizeConnections" "1" $REG_DWORD
+}
+
+function fBlockNonDomain {
+    #18.5.21.2 => Computer Configuration\Policies\Administrative Templates\Network\Windows Connection Manager\Prohibit connection to non-domain networks when connected to domain authenticated network
+    Write-Info "18.5.21.2 (L2) Ensure 'Prohibit connection to non-domain networks when connected to domain authenticated network' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy" "fBlockNonDomain" "1" $REG_DWORD
+}
+
+function NoCloudApplicationNotification {
+    #18.7.1.1 => Computer Configuration\Policies\Administrative Templates\Start Menu and Taskbar\Turn off notifications network usage
+    Write-Info "18.7.1.1 (L2) Ensure 'Turn off notifications network usage' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications" "NoCloudApplicationNotification" "1" $REG_DWORD
+}
+
+function ProcessCreationIncludeCmdLine {
+    #18.8.3.1 => Computer Configuration\Policies\Administrative Templates\System\Audit Process Creation\Include command line in process creation events
+    Write-Info "18.8.3.1 (L1) Ensure 'Include command line in process creation events' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit" "ProcessCreationIncludeCmdLine_Enabled" "0" $REG_DWORD
+}
+
+function EncryptionOracleRemediation {
+    #18.8.4.1 => Computer Configuration\Policies\Administrative Templates\System\Credentials Delegation\Encryption Oracle Remediation
+    Write-Info "18.8.4.1 (L1) Ensure 'Encryption Oracle Remediation' is set to 'Enabled: Force Updated Clients'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters" "AllowEncryptionOracle" "0" $REG_DWORD
+}
+
+function AllowProtectedCreds {
+    #18.8.4.2 => Computer Configuration\Policies\Administrative Templates\System\Credentials Delegation\Remote host allows delegation of non-exportable credentials
+    Write-Info "18.8.4.2 (L1) Ensure 'Remote host allows delegation of non-exportable credentials' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation" "AllowProtectedCreds" "1" $REG_DWORD
+}
+
+function EnableVirtualizationBasedSecurity {
+    #18.8.5.1 => Computer Configuration\Policies\Administrative Templates\System\Device Guard\Turn On Virtualization Based Security
+    Write-Info "18.8.5.1 (NG) Ensure 'Turn On Virtualization Based Security' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" "EnableVirtualizationBasedSecurity" "1" $REG_DWORD
+}
+
+function RequirePlatformSecurityFeatures {
+    #18.8.5.2 => Computer Configuration\Policies\Administrative Templates\System\Device Guard\Turn On Virtualization Based Security: Select Platform Security Level
+    Write-Info "18.8.5.2 (NG) Ensure 'Turn On Virtualization Based Security: Select Platform Security Level' is set to 'Secure Boot and DMA Protection'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" "RequirePlatformSecurityFeatures" "3" $REG_DWORD
+}
+
+function HypervisorEnforcedCodeIntegrity {
+    #18.8.5.3 => Computer Configuration\Policies\Administrative Templates\System\Device Guard\Turn On Virtualization Based Security: Virtualization Based Protection of Code Integrity 
+    Write-Info "18.8.5.3 (NG) Ensure 'Turn On Virtualization Based Security: Virtualization Based Protection of Code Integrity' is set to 'Enabled with UEFI lock'" ""
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" "HypervisorEnforcedCodeIntegrity" "1" $REG_DWORD
+}
+
+function HVCIMATRequired {
+    #18.8.5.4 => Computer Configuration\Policies\Administrative Templates\System\Device Guard\Turn On Virtualization Based Security: Require UEFI Memory Attributes Table
+    Write-Info "18.8.5.4 (NG) Ensure 'Turn On Virtualization Based Security: Require UEFI Memory Attributes Table' is set to 'True (checked)'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" "HVCIMATRequired" "1" $REG_DWORD
+}
+
+function LsaCfgFlags {
+    #18.8.5.5 => Computer Configuration\Policies\Administrative Templates\System\Device Guard\Turn On Virtualization Based Security: Credential Guard Configuration
+    Write-Info "18.8.5.5 (NG) Ensure 'Turn On Virtualization Based Security: Credential Guard Configuration' is set to 'Enabled with UEFI lock'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" "LsaCfgFlags" "1" $REG_DWORD
+}
+
+function ConfigureSystemGuardLaunch {
+    #18.8.6.7 => Computer Configuration\Policies\Administrative Templates\System\Device Guard\Turn On Virtualization Based Security: Secure Launch Configuration
+    Write-Info "18.8.5.7 (NG) Ensure 'Turn On Virtualization Based Security: Secure Launch Configuration' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" "ConfigureSystemGuardLaunch" "1" $REG_DWORD
+}
+
+function DriverLoadPolicy {
+    #18.8.14.1 => Computer Configuration\Policies\Administrative Templates\System\Early Launch Antimalware\Boot-Start Driver Initialization Policy
+    Write-Info "18.8.14.1 (L1) Ensure 'Boot-Start Driver Initialization Policy' is set to 'Enabled: Good, unknown and bad but critical'"
+    SetRegistry "HKLM:\SYSTEM\CurrentControlSet\Policies\EarlyLaunch" "DriverLoadPolicy" "1" $REG_DWORD
+}
+
+function NoBackgroundPolicy {
+    #18.8.21.2 => Computer Configuration\Policies\Administrative Templates\System\Group Policy\Configure registry policy processing
+    Write-Info "18.8.21.2 (L1) Ensure 'Configure registry policy processing: Do not apply during periodic background processing' is set to 'Enabled: FALSE'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}" "NoBackgroundPolicy" "0" $REG_DWORD
+}
+
+function NoGPOListChanges {
+    #18.8.21.3 => Computer Configuration\Policies\Administrative Templates\System\Group Policy\Configure registry policy processing
+    Write-Info "18.8.21.3 (L1) Ensure 'Configure registry policy processing: Process even if the Group Policy objects have not changed' is set to 'Enabled: TRUE'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}" "NoGPOListChanges" "1" $REG_DWORD
+}
+
+function EnableCdp {
+    #18.8.21.4 => Computer Configuration\Policies\Administrative Templates\System\Group Policy\Continue experiences on this device
+    Write-Info "18.8.21.4 (L1) Ensure 'Continue experiences on this device' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "EnableCdp" "0" $REG_DWORD
+}
+
+function DisableBkGndGroupPolicy {
+    #18.8.21.5 => Computer Configuration\Policies\Administrative Templates\System\Group Policy\Turn off background refresh of Group Policy 
+    Write-Info "18.8.21.5 (L1) Ensure 'Turn off background refresh of Group Policy' is set to 'Disabled' "
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "DisableBkGndGroupPolicy" "0" $REG_DWORD
+}
+
+function DisableWebPnPDownload {
+    #18.8.22.1.1 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off downloading of print drivers over HTTP
+    Write-Info "18.8.22.1.1 (L1) Ensure 'Turn off downloading of print drivers over HTTP' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Printers" "DisableWebPnPDownload" "1" $REG_DWORD
+}
+
+function PreventHandwritingDataSharing {
+    #18.8.22.1.2 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off handwriting personalization data sharing
+    Write-Info "18.8.22.1.2 (L2) Ensure 'Turn off handwriting personalization data sharing' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\TabletPC" "PreventHandwritingDataSharing" "1" $REG_DWORD
+}
+
+function PreventHandwritingErrorReports {
+    #18.8.22.1.3 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off handwriting recognition error reporting
+    Write-Info "18.8.22.1.3 (L2) Ensure 'Turn off handwriting recognition error reporting' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports" "PreventHandwritingErrorReports" "1" $REG_DWORD
+}
+
+function ExitOnMSICW {
+    #18.8.22.1.4 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off Internet Connection Wizard if URL connection is referring to Microsoft.com 
+    Write-Info "18.8.22.1.4 (L2) Ensure 'Turn off Internet Connection Wizard if URL connection is referring to Microsoft.com' is set to 'Enabled' "
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Internet Connection Wizard" "ExitOnMSICW" "1" $REG_DWORD
+}
+
+function NoWebServices {
+    #18.8.22.1.5 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off Internet download for Web publishing and online ordering wizards 
+    Write-Info "18.8.22.1.5 (L1) Ensure 'Turn off Internet download for Web publishing and online ordering wizards' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "NoWebServices" "1" $REG_DWORD
+}
+
+function DisableHTTPPrinting {
+    #18.8.22.1.6 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off printing over HTTP
+    Write-Info "18.8.22.1.6 (L2) Ensure 'Turn off printing over HTTP' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Printers" "DisableHTTPPrinting" "1" $REG_DWORD
+}
+
+function NoRegistration {
+    #18.8.22.1.7 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off Registration if URL connection is referring to Microsoft.com 
+    Write-Info "18.8.22.1.7 (L2) Ensure 'Turn off Registration if URL connection is referring to Microsoft.com' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Registration Wizard Control" "NoRegistration" "1" $REG_DWORD
+}
+
+function DisableContentFileUpdates {
+    #18.8.22.1.8 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off Search Companion content file updates 
+    Write-Info "18.8.22.1.8 (L2) Ensure 'Turn off Search Companion content file updates' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\SearchCompanion" "DisableContentFileUpdates" "1" $REG_DWORD
+}
+
+function NoOnlinePrintsWizard {
+    #18.8.22.1.9 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off the "Order Prints" picture task 
+    Write-Info "18.8.22.1.9 (L2) Ensure 'Turn off the Order Prints picture task' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "NoOnlinePrintsWizard" "1" $REG_DWORD
+}
+
+function NoPublishingWizard {
+    #18.8.22.1.10 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off the "Publish to Web" task for files and folders
+    Write-Info "18.8.22.1.10 (L2) Ensure 'Turn off the Publish to Web task for files and folders' is set to 'Enabled'" 
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "NoPublishingWizard" "1" $REG_DWORD
+}
+
+function CEIP {
+    #18.8.22.1.11 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off the Windows Messenger Customer Experience Improvement Program
+    Write-Info "18.8.22.1.11 (L2) Ensure 'Turn off the Windows Messenger Customer Experience Improvement Program' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Messenger\Client" "CEIP" "1" $REG_DWORD
+}
+
+function CEIPEnable {
+    #18.8.22.1.2 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off Windows Customer Experience Improvement Program 
+    Write-Info "18.8.22.1.12 (L2) Ensure 'Turn off Windows Customer Experience Improvement Program' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\SQMClient\Windows" "CEIPEnable" "1" $REG_DWORD
+}
+
+function TurnoffWindowsErrorReporting {
+    #18.8.22.1.13 => Computer Configuration\Policies\Administrative Templates\System\Internet Communication Management\Internet Communication settings\Turn off Windows Error Reporting 
+    Write-Info "18.8.22.1.13 (L2) Ensure 'Turn off Windows Error Reporting' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" "Disabled" "1" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\PCHealth\ErrorReporting" "DoReport" "1" $REG_DWORD
+}
+
+function SupportDeviceAuthenticationUsingCertificate {
+    #18.8.25.1 => Computer Configuration\Policies\Administrative Templates\System\Kerberos\Support device authentication using certificate 
+    Write-Info "18.8.25.1 (L2) Ensure 'Support device authentication using certificate' is set to 'Enabled: Automatic'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\kerberos\parameters" "DevicePKInitBehavior" "1" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\kerberos\parameters" "DevicePKInitEnabled" "1" $REG_DWORD
+}
+
+function DeviceEnumerationPolicy {
+    #18.8.26.1 => Computer Configuration\Policies\Administrative Templates\System\Kernel DMA Protection\Enumeration policy for external devices incompatible with Kernel DMA Protection
+    Write-Info "18.8.26.1 (L1) Ensure 'Enumeration policy for external devices incompatible with Kernel DMA Protection' is set to 'Enabled: Block All'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Kernel DMA Protection" "DeviceEnumerationPolicy" "1" $REG_DWORD
+}
+
+function BlockUserInputMethodsForSignIn {
+    #18.8.27.1 => Computer Configuration\Policies\Administrative Templates\System\Locale Services\Disallow copying of user input methods to the system account for sign-in
+    Write-Info "18.8.27.1 (L2) Ensure 'Disallow copying of user input methods to the system account for sign-in' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Control Panel\International" "BlockUserInputMethodsForSignIn" "1" $REG_DWORD
+}
+
+function BlockUserFromShowingAccountDetailsOnSignin {
+    #18.8.28.1 => Computer Configuration\Policies\Administrative Templates\System\Logon\Block user from showing account details on sign-in
+    Write-Info "18.8.28.1 (L1) Ensure 'Block user from showing account details on signin' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "BlockUserFromShowingAccountDetailsOnSignin" "1" $REG_DWORD
+}
+
+function DontDisplayNetworkSelectionUI {
+    #18.8.28.2 => Computer Configuration\Policies\Administrative Templates\System\Logon\Do not display network selection UI
+    Write-Info "18.8.28.2 (L1) Ensure 'Do not display network selection UI' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "DontDisplayNetworkSelectionUI" "1" $REG_DWORD
+}
+
+function DontEnumerateConnectedUsers {
+    #18.8.28.3 => Computer Configuration\Policies\Administrative Templates\System\Logon\Do not enumerate connected users on domain-joined computers 
+    Write-Info "18.8.28.3 (L1) Ensure 'Do not enumerate connected users on domainjoined computers' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "DontEnumerateConnectedUsers" "1" $REG_DWORD
+}
+
+function EnumerateLocalUsers {
+    #18.8.28.4 => Computer Configuration\Policies\Administrative Templates\System\Logon\Enumerate local users on domain-joined computers
+    Write-Info "18.8.28.4 (L1) Ensure 'Enumerate local users on domain-joined computers' is set to 'Disabled' "
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "EnumerateLocalUsers" "0" $REG_DWORD
+}
+
+function DisableLockScreenAppNotifications {
+    #18.8.28.5 => Computer Configuration\Policies\Administrative Templates\System\Logon\Turn off app notifications on the lock screen 
+    Write-Info "18.8.28.5 (L1) Ensure 'Turn off app notifications on the lock screen' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "DisableLockScreenAppNotifications" "1" $REG_DWORD
+}
+
+function BlockDomainPicturePassword {
+    #18.8.28.6 => Computer Configuration\Policies\Administrative Templates\System\Logon\Turn off picture password sign-in
+    Write-Info "18.8.28.6 (L1) Ensure 'Turn off picture password sign-in' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "BlockDomainPicturePassword" "1" $REG_DWORD
+}
+
+function AllowDomainPINLogon {
+    #18.8.28.7 => Computer Configuration\Policies\Administrative Templates\System\Logon\Turn on convenience PIN sign-in 
+    Write-Info "18.8.28.7 (L1) Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "AllowDomainPINLogon" "0" $REG_DWORD
+}
+
+function AllowCrossDeviceClipboard {
+    #18.8.31.1 => Computer Configuration\Policies\Administrative Templates\System\OS Policies\Allow Clipboard synchronization across devices
+    Write-Info "18.8.31.1 (L2) Ensure 'Allow Clipboard synchronization across devices' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "AllowCrossDeviceClipboard" "0" $REG_DWORD
+}
+
+function UploadUserActivities {
+    #18.8.31.2 => Computer Configuration\Policies\Administrative Templates\System\OS Policies\Allow upload of User Activities
+    Write-Info "18.8.31.2 (L2) Ensure 'Allow upload of User Activities' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "UploadUserActivities" "0" $REG_DWORD
+}
+
+function AllowNetworkBatteryStandby {
+    #18.8.34.6.1 => Computer Configuration\Policies\Administrative Templates\System\Power Management\Sleep Settings\Allow network connectivity during connected-standby (on battery)
+    Write-Info "18.8.34.6.1 (L2) Ensure 'Allow network connectivity during connectedstandby (on battery)' is set to 'Disabled' "
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\f15576e898b7-4186-b944-eafa664402d9" "DCSettingIndex" "0" $REG_DWORD
+}
+
+function AllowNetworkACStandby {
+    #18.8.34.6.2 => Computer Configuration\Policies\Administrative Templates\System\Power Management\Sleep Settings\Allow network connectivity during connected-standby (plugged in)
+    Write-Info "18.8.34.6.2 (L2) Ensure 'Allow network connectivity during connectedstandby (plugged in)' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\f15576e898b7-4186-b944-eafa664402d9" "ACSettingIndex" "0" $REG_DWORD
+}
+
+function RequirePasswordWakes {
+    #18.8.34.6.3 => Computer Configuration\Policies\Administrative Templates\System\Power Management\Sleep Settings\Require a password when a computer wakes (on battery)
+    Write-Info "18.8.34.6.3 (L1) Ensure 'Require a password when a computer wakes (on battery)' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb100d-47d6-a2d5-f7d2daa51f51" "DCSettingIndex" "1" $REG_DWORD
+}
+
+function RequirePasswordWakesAC {
+    #18.8.34.6.4 => Computer Configuration\Policies\Administrative Templates\System\Power Management\Sleep Settings\Require a password when a computer wakes (plugged in)
+    Write-Info "18.8.34.6.4 (L1) Ensure 'Require a password when a computer wakes (plugged in)' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb100d-47d6-a2d5-f7d2daa51f51" "ACSettingIndex" "1" $REG_DWORD
+}
+
+function fAllowUnsolicited {
+    #18.8.36.1 => Computer Configuration\Policies\Administrative Templates\System\Remote Assistance\Configure Offer Remote Assistance
+    Write-Info "18.8.36.1 (L1) Ensure 'Configure Offer Remote Assistance' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fAllowUnsolicited" "0" $REG_DWORD
+}
+
+function fAllowToGetHelp {
+    #18.8.36.2 => Computer Configuration\Policies\Administrative Templates\System\Remote Assistance\Configure Solicited Remote Assistance
+    Write-Info "18.8.36.2 (L1) Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fAllowToGetHelp" "0" $REG_DWORD
+}
+
+function EnableAuthEpResolution {
+    #18.8.37.1 => Computer Configuration\Policies\Administrative Templates\System\Remote Procedure Call\Enable RPC Endpoint Mapper Client Authentication 
+    Write-Info "18.8.37.1 (L1) Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Rpc" "EnableAuthEpResolution" "1" $REG_DWORD
+}
+
+function RestrictRemoteClients {
+    #18.8.37.2 => Computer Configuration\Policies\Administrative Templates\System\Remote Procedure Call\Restrict Unauthenticated RPC clients 
+    Write-Info "18.8.37.2 (L2) Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Rpc" "RestrictRemoteClients" "1" $REG_DWORD
+}
+
+function DisableQueryRemoteServer {
+    #18.8.45.5 => Computer Configuration\Policies\Administrative Templates\System\Troubleshooting and Diagnostics\Microsoft Support Diagnostic Tool\Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider 
+    Write-Info "18.8.45.5.1 (L2) Ensure 'Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy" "DisableQueryRemoteServer" "0" $REG_DWORD
+}
+
+function ScenarioExecutionEnabled {
+    #18.8.45.11.1 => Computer Configuration\Policies\Administrative Templates\System\Troubleshooting and Diagnostics\Windows Performance PerfTrack\Enable/Disable PerfTrack 
+    Write-Info "18.8.45.11.1 (L2) Ensure 'Enable/Disable PerfTrack' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b9654fc3-8781-88dd50a6299d}" "ScenarioExecutionEnabled" "0" $REG_DWORD
+}
+
+function DisabledAdvertisingInfo {
+    #18.8.47.1 => Computer Configuration\Policies\Administrative Templates\System\User Profiles\Turn off the advertising ID 
+    Write-Info "18.8.47.1 (L2) Ensure 'Turn off the advertising ID' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" "DisabledByGroupPolicy" "1" $REG_DWORD
+}
+
+function NtpClientEnabled {
+    #18.8.50.1.1 => Computer Configuration\Policies\Administrative Templates\System\Windows Time Service\Time Providers\Enable Windows NTP Client 
+    Write-Info "18.8.50.1.1 (L2) Ensure 'Enable Windows NTP Client' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpClient" "Enabled" "1" $REG_DWORD
+}
+
+function DisableWindowsNTPServer {
+    #18.8.50.1.2 => Computer Configuration\Policies\Administrative Templates\System\Windows Time Service\Time Providers\Enable Windows NTP Server
+    Write-Info "18.8.50.1.2 (L2) Ensure 'Enable Windows NTP Server' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpServer" "Enabled" "0" $REG_DWORD
+}
+
+function AllowSharedLocalAppData {
+    #18.9.4.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\App Package Deployment\Allow a Windows app to share application data between users
+    Write-Info "18.9.4.1 (L2) Ensure 'Allow a Windows app to share application data between users' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\AppModel\StateManager" "AllowSharedLocalAppData" "0" $REG_DWORD
+}
+
+function MSAOptional {
+    #18.9.6.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\App runtime\Allow Microsoft accounts to be optional 
+    Write-Info "18.9.6.1 (L1) Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "MSAOptional" "1" $REG_DWORD
+}
+
+function NoAutoplayfornonVolume {
+    #18.9.8.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\AutoPlay Policies\Disallow Autoplay for non-volume devices 
+    Write-Info "18.9.8.1 (L1) Ensure 'Disallow Autoplay for non-volume devices' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" "NoAutoplayfornonVolume" "1" $REG_DWORD
+}
+
+function NoAutorun {
+    #18.9.8.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\AutoPlay Policies\Set the default behavior for AutoRun 
+    Write-Info "18.9.8.2 (L1) Ensure 'Set the default behavior for AutoRun' is set to 'Enabled: Do not execute any autorun commands'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "NoAutorun" "1" $REG_DWORD
+}
+
+function NoDriveTypeAutoRun {
+    #18.9.8.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\AutoPlay Policies\Turn off Autoplay
+    Write-Info "18.9.8.3 (L1) Ensure 'Turn off Autoplay' is set to 'Enabled: All drives'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "NoDriveTypeAutoRun" "1" $REG_DWORD
+}
+
+function EnhancedAntiSpoofing {
+    #18.9.10.1.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Biometrics\Facial Features\Configure enhanced anti-spoofing
+    Write-Info "18.9.10.1.1 (L1) Ensure 'Configure enhanced anti-spoofing' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Biometrics\FacialFeatures" "EnhancedAntiSpoofing" "1" $REG_DWORD
+}
+
+function DisallowCamera {
+    #18.9.12.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Camera\Allow Use of Camera 
+    Write-Info "18.9.12.1 (L2) Ensure 'Allow Use of Camera' is set to 'Disabled'" 
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Camera" "AllowCamera" "0" $REG_DWORD
+}
+
+function DisableWindowsConsumerFeatures {
+    #18.9.13.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Cloud Content\Turn off Microsoft consumer experiences
+    Write-Info "18.9.13.1 (L1) Ensure 'Turn off Microsoft consumer experiences' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" "DisableWindowsConsumerFeatures" "1" $REG_DWORD
+}
+
+function RequirePinForPairing {
+    #18.9.14.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Connect\Require pin for pairing 
+    Write-Info "18.9.14.1 (L1) Ensure 'Require pin for pairing' is set to 'Enabled: First Time' OR 'Enabled: Always'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Connect" "RequirePinForPairing" "1" $REG_DWORD
+}
+
+function DisablePasswordReveal {
+    #18.9.15.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Credential User Interface\Do not display the password reveal button
+    Write-Info "18.9.15.1 (L1) Ensure 'Do not display the password reveal button' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CredUI" "DisablePasswordReveal" "1" $REG_DWORD
+}
+
+function DisableEnumerateAdministrators {
+    #18.9.15.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Credential User Interface\Enumerate administrator accounts on elevation
+    Write-Info "18.9.15.2 (L1) Ensure 'Enumerate administrator accounts on elevation' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI" "EnumerateAdministrators" "0" $REG_DWORD
+}
+
+function DisallowTelemetry {
+    #18.9.16.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Data Collection and Preview Builds\Allow Telemetry 
+    Write-Info "18.9.16.1 (L1) Ensure 'Allow Telemetry' is set to 'Enabled: 0 - Security [Enterprise Only]' or 'Enabled: 1 - Basic'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" "AllowTelemetry" "0" $REG_DWORD
+}
+
+function DisableEnterpriseAuthProxy {
+    #18.9.16.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Data Collection and Preview Builds\Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service
+    Write-Info "18.9.16.2 (L2) Ensure 'Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service' is set to 'Enabled: Disable Authenticated Proxy usage'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" "DisableEnterpriseAuthProxy" "1" $REG_DWORD
+}
+
+function DoNotShowFeedbackNotifications {
+    #18.9.16.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Data Collection and Preview Builds\Do not show feedback notifications
+    Write-Info "18.9.16.3 (L1) Ensure 'Do not show feedback notifications' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" "DoNotShowFeedbackNotifications" "1" $REG_DWORD
+}
+
+function AllowBuildPreview {
+    #18.9.16.4 => Computer Configuration\Policies\Administrative Templates\Windows Components\Data Collection and Preview Builds\Toggle user control over Insider builds
+    Write-Info "18.9.16.4 (L1) Ensure 'Toggle user control over Insider builds' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" "AllowBuildPreview" "0" $REG_DWORD
+}
+
+function EventLogRetention  {
+    #18.9.26.1.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\Application\Control Event Log behavior when the log file reaches its maximum size
+    Write-Info "18.9.26.1.1 (L1) Ensure 'Application: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" "Retention" "0" $REG_DWORD
+}
+
+function EventLogMaxSize {
+    #18.9.26.1.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\Application\Specify the maximum log file size (KB)
+    Write-Info "18.9.26.1.2 (L1) Ensure 'Application: Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" "MaxSize" "32768" $REG_DWORD
+}
+
+function EventLogSecurityRetention {
+    #18.9.26.2.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\Security\Control Event Log behavior when the log file reaches its maximum size
+    Write-Info "18.9.26.2.1 (L1) Ensure 'Security: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security" "Retention" "0" $REG_DWORD
+}
+
+function EventLogSecurityMaxSize {
+    #18.8.26.2.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\Security\Specify the maximum log file size (KB)
+    Write-Info "18.9.26.2.2 (L1) Ensure 'Security: Specify the maximum log file size (KB)' is set to 'Enabled: 196,608 or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security" "MaxSize" "196608" $REG_DWORD
+}
+
+function EventLogSetupRetention {
+    #18.9.26.3.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\Setup\Control Event Log behavior when the log file reaches its maximum size
+    Write-Info "18.9.26.3.1 (L1) Ensure 'Setup: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup" "Retention" "0" $REG_DWORD
+}
+
+function EventLogSetupMaxSize {
+    #18.9.26.3.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\Setup\Specify the maximum log file size (KB)
+    Write-Info "18.9.26.3.2 (L1) Ensure 'Setup: Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup" "MaxSize" "32768" $REG_DWORD
+}
+
+function EventLogSystemRetention {
+    #18.9.26.4.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\System\Control Event Log behavior when the log file reaches its maximum size
+    Write-Info "18.9.26.4.1 (L1) Ensure 'System: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\System" "Retention" "0" $REG_DWORD
+}
+
+function EventLogSystemMaxSize {
+    #18.9.26.4.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Event Log Service\System\Specify the maximum log file size (KB)
+    Write-Info "18.9.26.4.2 (L1) Ensure 'System: Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\System" "MaxSize" "32768" $REG_DWORD
+}
+
+function NoDataExecutionPrevention {
+    #18.9.30.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\File Explorer\Turn off Data Execution Prevention for Explorer 
+    Write-Info "18.9.30.2 (L1) Ensure 'Turn off Data Execution Prevention for Explorer' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" "NoDataExecutionPrevention" "0" $REG_DWORD
+}
+
+function NoHeapTerminationOnCorruption {
+    #18.9.30.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\File Explorer\Turn off heap termination on corruption 
+    Write-Info "18.9.30.3 (L1) Ensure 'Turn off heap termination on corruption' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" "NoHeapTerminationOnCorruption" "0" $REG_DWORD
+}
+
+function PreXPSP2ShellProtocolBehavior {
+    #18.9.30.4 => Computer Configuration\Policies\Administrative Templates\Windows Components\File Explorer\Turn off shell protocol protected mode
+    Write-Info "18.9.30.4 (L1) Ensure 'Turn off shell protocol protected mode' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" "PreXPSP2ShellProtocolBehavior" "0" $REG_DWORD
+}
+
+function LocationAndSensorsDisableLocation {
+    #18.9.39.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Location and Sensors\Turn off location
+    Write-Info "18.9.39.2 (L2) Ensure 'Turn off location' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" "DisableLocation" "1" $REG_DWORD
+}
+
+function MessagingAllowMessageSync {
+    #18.9.43.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Messaging\Allow Message Service Cloud Sync
+    Write-Info "18.9.43.1 (L2) Ensure 'Allow Message Service Cloud Sync' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging" "AllowMessageSync" "0" $REG_DWORD
+}
+
+function MicrosoftAccountDisableUserAuth {
+    #18.9.44.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Microsoft accounts\Block all consumer Microsoft account user authentication
+    Write-Info "18.9.44.1 (L1) Ensure 'Block all consumer Microsoft account user authentication' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftAccount" "DisableUserAuth" "1" $REG_DWORD
+}
+
+function OneDriveDisableFileSyncNGSC {
+    #18.9.52.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\OneDrive\Prevent the usage of OneDrive for file storage
+    Write-Info "18.9.52.1 (L1) Ensure 'Prevent the usage of OneDrive for file storage' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" "DisableFileSyncNGSC" "1" $REG_DWORD
+}
+
+function TerminalServicesDisablePasswordSaving {
+    #18.9.59.2.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Connection Client\Do not allow passwords to be saved
+    Write-Info "18.9.59.2.2 (L1) Ensure 'Do not allow passwords to be saved' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "DisablePasswordSaving" "1"
+}
+
+function fSingleSessionPerUser {
+    #18.9.59.3.2.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Connections\Restrict Remote Desktop Services users to a single Remote Desktop Services session 
+    Write-Info "18.9.59.3.2.1 (L2) Ensure 'Restrict Remote Desktop Services users to a single Remote Desktop Services session' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fSingleSessionPerUser" "1" $REG_DWORD
+}
+ 
+function TerminalServicesfDisableCcm {
+    #18.9.59.3.3.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Device and Resource Redirection\Do not allow COM port redirection
+    Write-Info "18.9.59.3.3.1 (L2) Ensure 'Do not allow COM port redirection' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Service" "fDisableCcm" "1" $REG_DWORD
+}
+
+function TerminalServicesfDisableCdm {
+    #18.9.59.3.3.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Device and Resource Redirection\Do not allow drive redirection
+    Write-Info "18.9.59.3.3.2 (L1) Ensure 'Do not allow drive redirection' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fDisableCdm" "1" $REG_DWORD
+}
+
+function TerminalServicesfDisableLPT {
+    #18.9.59.3.3.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Device and Resource Redirection\Do not allow LPT port redirection
+    Write-Info "18.9.59.3.3.3 (L2) Ensure 'Do not allow LPT port redirection' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Service" "fDisableLPT" "1" $REG_DWORD
+}
+
+function TerminalServicesfDisablePNPRedir {
+    #18.9.59.3.3.4 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Device and Resource Redirection\Do not allow supported Plug and Play device redirection
+    Write-Info "18.9.59.3.3.4 (L2) Ensure 'Do not allow supported Plug and Play device redirection' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fDisablePNPRedir" "1" $REG_DWORD
+}
+
+function TerminalServicesfPromptForPassword {
+    #18.9.59.3.9.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Security\Always prompt for password upon connection
+    Write-Info "18.9.59.3.9.1 (L1) Ensure 'Always prompt for password upon connection' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fPromptForPassword" "1" $REG_DWORD
+}
+
+function TerminalServicesfEncryptRPCTraffic {
+    #18.9.59.3.9.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Security\Require secure RPC communication
+    Write-Info "18.9.59.3.9.2 (L1) Ensure 'Require secure RPC communication' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "fEncryptRPCTraffic" "1" $REG_DWORD
+}
+
+function TerminalServicesSecurityLayer {
+    #18.9.59.3.9.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Security\Require use of specific security layer for remote (RDP) connections
+    Write-Info "18.9.59.3.9.3 (L1) Ensure 'Require use of specific security layer for remote (RDP) connections' is set to 'Enabled: SSL'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "SecurityLayer" "1" $REG_DWORD
+}
+
+function TerminalServicesUserAuthentication {
+    #18.9.59.3.9.4 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Security\Require user authentication for remote connections by using Network Level Authentication
+    Write-Info "18.9.59.3.9.4 (L1) Ensure 'Require user authentication for remote connections by using Network Level Authentication' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "UserAuthentication" "1" $REG_DWORD
+}
+
+function TerminalServicesMinEncryptionLevel {
+    #18.9.59.3.9.5 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Security\Set client connection encryption level
+    Write-Info "18.9.59.3.9.5 (L1) Ensure 'Set client connection encryption level' is set to 'Enabled: High Level'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "MinEncryptionLevel" "1" $REG_DWORD
+}
+
+function TerminalServicesMaxIdleTime {
+    #18.9.59.3.10.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Session Time Limits\Set time limit for active but idle Remote Desktop Services sessions
+    Write-Info "18.9.59.3.10.1 (L2) Ensure 'Set time limit for active but idle Remote Desktop Services sessions' is set to 'Enabled: 15 minutes or less'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "MaxIdleTime" "15" $REG_DWORD
+}
+
+function TerminalServicesMaxDisconnectionTime {
+    #18.9.59.3.10.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Session Time Limits\Set time limit for disconnected sessions 
+    Write-Info "18.9.59.3.10.2 (L2) Ensure 'Set time limit for disconnected sessions' is set to 'Enabled: 1 minute'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "MaxDisconnectionTime" "1" $REG_DWORD
+}
+
+function TerminalServicesDeleteTempDirsOnExit {
+    #18.9.59.3.11.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Temporary Folders\Do not delete temp folders upon exit
+    Write-Info "18.9.59.3.11.1 (L1) Ensure 'Do not delete temp folders upon exit' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "DeleteTempDirsOnExit" "0" $REG_DWORD
+}
+
+function TerminalServicesPerSessionTempDir {
+    #18.9.59.3.11.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Remote Desktop Services\Remote Desktop Session Host\Temporary Folders\Do not use temporary folders per session
+    Write-Info "18.9.59.3.11.2 (L1) Ensure 'Do not use temporary folders per session' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" "PerSessionTempDir" "0" $REG_DWORD
+}
+
+function DisableEnclosureDownload {
+    #18.9.60.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\RSS Feeds\Prevent downloading of enclosures
+    Write-Info "18.9.60.1 (L1) Ensure 'Prevent downloading of enclosures' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds" "DisableEnclosureDownload" "1" $REG_DWORD
+}
+
+function WindowsSearchAllowCloudSearch {
+    #18.9.61.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Search\Allow Cloud Search
+    Write-Info "18.9.61.2 (L2) Ensure 'Allow Cloud Search' is set to 'Enabled: Disable Cloud Search'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowCloudSearch" "1" $REG_DWORD
+}
+
+function AllowIndexingEncryptedStoresOrItems {
+    #18.9.61.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Search\Allow indexing of encrypted files
+    Write-Info "18.9.61.3 (L1) Ensure 'Allow indexing of encrypted files' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowIndexingEncryptedStoresOrItems" "0" $REG_DWORD
+}
+
+function NoGenTicket {
+    #18.9.66.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Software Protection Platform\Turn off KMS Client Online AVS Validation
+    Write-Info "18.9.66.1 (L2) Ensure 'Turn off KMS Client Online AVS Validation' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" "NoGenTicket" "1" $REG_DWORD
+}
+
+function LocalSettingOverrideSpynetReporting {
+    #18.9.77.3.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\MAPS\Configure local setting override for reporting to Microsoft MAPS
+    Write-Info "18.9.77.3.1 (L1) Ensure 'Configure local setting override for reporting to Microsoft MAPS' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" "LocalSettingOverrideSpynetReporting" "0" $REG_DWORD
+}
+
+function SpynetReporting {
+    #18.9.77.3.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\MAPS\Join Microsoft MAPS
+    Write-Info "18.9.77.3.2 (L2) Ensure 'Join Microsoft MAPS' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" "SpynetReporting" "0" $REG_DWORD
+}
+
+function DisableBehaviorMonitoring {
+    #18.9.77.7.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Real-Time Protection\Turn on behavior monitoring 
+    Write-Info "18.9.77.7.1 (L1) Ensure 'Turn on behavior monitoring' is set to 'Enabled'"
+    SetRegistry "HKLM:SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" "DisableBehaviorMonitoring" "1" $REG_DWORD
+}
+
+function DisableGenericRePorts {
+    #18.9.77.9.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Reporting\Configure Watson events
+    Write-Info "18.9.77.9.1 (L2) Ensure 'Configure Watson events' is set to 'Disabled'"
+    SetRegistry "HKLM:SOFTWARE\Policies\Microsoft\Windows Defender\Reporting" "DisableGenericRePorts" "0" $REG_DWORD
+}
+
+function DisableRemovableDriveScanning {
+    #18.9.77.10.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Scan\Scan removable drives
+    Write-Info "18.9.77.10.1 (L1) Ensure 'Scan removable drives' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" "DisableRemovableDriveScanning" "1" $REG_DWORD
+}
+
+function DisableEmailScanning {
+    #18.9.77.10.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Scan\Turn on e-mail scanning
+    Write-Info "18.9.77.10.2 (L1) Ensure 'Turn on e-mail scanning' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Scan" "DisableEmailScanning" "1" $REG_DWORD
+}
+
+function ExploitGuard_ASR_Rules {
+    #18.9.77.13.1.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules
+    Write-Info "18.9.77.13.1.1 (L1) Ensure 'Configure Attack Surface Reduction rules' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR" "ExploitGuard_ASR_Rules" "1" $REG_DWORD
+}
+
+function ConfigureASRrules {
+    #18.9.77.13.1.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Windows Defender Exploit Guard\Attack Surface Reduction\Configure Attack Surface Reduction rules: Set the state for each ASR rule
+    Write-Info "18.9.77.13.1.2 (L1) Ensure 'Configure Attack Surface Reduction rules: Set the state for each ASR rule' is 'configured'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "26190899-1602-49e8-8b27-eb1d0a1ce869" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "3b576869-a4ec-4529-8536-b80a7769e899" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "5beb7efe-fd9a-4556-801d-275e5ffc04cc" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "be9ba2d9-53ea-4cdc-84e5-9b1eeee46550" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "d3e037e1-3eb8-44c8-a917-57927947596d" "1" $REG_SZ
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\ASR\Rules" "d4f940ab-401b-4efc-aadc-ad5f3c50688a" "1" $REG_SZ
+} 
+
+function EnableNetworkProtection {
+    #18.9.77.13.3.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Windows Defender Exploit Guard\Network Protection\Prevent users and apps from accessing dangerous websites
+    Write-Info "18.9.77.13.3.1 (L1) Ensure 'Prevent users and apps from accessing dangerous websites' is set to 'Enabled: Block'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection" "EnableNetworkProtection" "1" $REG_DWORD
+}
+
+function PUAProtection {
+    #18.9.77.14 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Configure detection for potentially unwanted applications
+    Write-Info "18.9.77.14 (L1) Ensure 'Configure detection for potentially unwanted applications' is set to 'Enabled: Block'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" "PUAProtection" "1" $REG_DWORD
+}
+
+function DisableAntiSpyware {
+    #18.9.77.15 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender Antivirus\Turn off Windows Defender AntiVirus
+    Write-Info "18.9.77.15 (L1) Ensure 'Turn off Windows Defender AntiVirus' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" "DisableAntiSpyware" "0" $REG_DWORD
+}
+
+function DefenderSmartScreen {
+    #18.9.80.1.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Defender SmartScreen\Explorer\Configure Windows Defender SmartScreen
+    Write-Info "18.9.80.1.1 (L1) Ensure 'Configure Windows Defender SmartScreen' is set to 'Enabled: Warn and prevent bypass'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "EnableSmartScreen" "1" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "ShellSmartScreenLevel" "1" $REG_DWORD
+}
+
+function AllowSuggestedAppsInWindowsInkWorkspace {
+    #18.9.84.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Ink Workspace\Allow suggested apps in Windows Ink Workspace
+    Write-Info "18.9.84.1 (L2) Ensure 'Allow suggested apps in Windows Ink Workspace' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace" "AllowSuggestedAppsInWindowsInkWorkspace" "0" $REG_DWORD
+}
+
+function AllowWindowsInkWorkspace {
+    #18.9.84.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Ink Workspace\Allow Windows Ink Workspace
+    Write-Info "18.9.84.2 (L1) Ensure 'Allow Windows Ink Workspace' is set to 'Enabled: On, but disallow access above lock' OR 'Disabled' but not 'Enabled: On'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace" "AllowWindowsInkWorkspace" "1" $REG_DWORD
+}
+
+function InstallerEnableUserControl {
+    #18.9.85.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Installer\Allow user control over installs
+    Write-Info "18.9.85.1 (L1) Ensure 'Allow user control over installs' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer" "EnableUserControl" "0" $REG_DWORD
+}
+
+function InstallerAlwaysInstallElevated {
+    #18.9.85.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Installer\Always install with elevated privileges
+    Write-Info "18.9.85.2 (L1) Ensure 'Always install with elevated privileges' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer" "AlwaysInstallElevated" "0" $REG_DWORD
+}
+
+function InstallerSafeForScripting {
+    #18.9.85.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Installer\Prevent Internet Explorer security prompt for Windows Installer scripts
+    Write-Info "18.9.85.3 (L2) Ensure 'Prevent Internet Explorer security prompt for Windows Installer scripts' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer" "SafeForScripting" "0" $REG_DWORD
+}
+
+function DisableAutomaticRestartSignOn {
+    #18.9.86.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Logon Options\Sign-in last interactive user automatically after a system-initiated restart 
+    Write-Info "18.9.86.1 (L1) Ensure 'Sign-in last interactive user automatically after a system-initiated restart' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "DisableAutomaticRestartSignOn" "0" $REG_DWORD
+}
+
+function EnableScriptBlockLogging {
+    #18.9.95.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows PowerShell\Turn on PowerShell Script Block Logging
+    Write-Info "18.9.95.1 (L1) Ensure 'Turn on PowerShell Script Block Logging' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" "EnableScriptBlockLogging" "0" $REG_DWORD
+}
+
+function EnableTranscripting {
+    #18.9.95.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows PowerShell\Turn on PowerShell Transcription 
+    Write-Info "18.9.95.2 (L1) Ensure 'Turn on PowerShell Transcription' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription" "EnableTranscripting" "0" $REG_DWORD
+}
+
+function WinRMClientAllowBasic  {
+    #18.9.97.1.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Client\Allow Basic authentication
+    Write-Info "18.9.97.1.1 (L1) Ensure 'Allow Basic authentication' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client" "AllowBasic" "0" $REG_DWORD
+}
+
+function WinRMClientAllowUnencryptedTraffic {
+    #18.9.97.1.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Client\Allow unencrypted traffic
+    Write-Info "18.9.97.1.2 (L1) Ensure 'Allow unencrypted traffic' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client" "AllowUnencryptedTraffic" "0" $REG_DWORD
+}
+
+function WinRMClientAllowDigest {
+    #18.9.97.1.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Client\Disallow Digest authentication
+    Write-Info "18.9.97.1.3 (L1) Ensure 'Disallow Digest authentication' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client" "AllowDigest" "1" $REG_DWORD
+}
+
+function WinRMServiceAllowBasic {
+    #18.9.97.2.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Service\Allow Basic authentication 
+    Write-Info "18.9.97.2.1 (L1) Ensure 'Allow Basic authentication' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" "AllowBasic" "0" $REG_DWORD
+}
+
+function WinRMServiceAllowAutoConfig {
+    #18.9.97.2.2 => Computer Configuration\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Service\Allow remote server management through WinRM
+    Write-Info "18.9.97.2.2 (L2) Ensure 'Allow remote server management through WinRM' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" "AllowAutoConfig" "0" $REG_DWORD
+}
+
+function WinRMServiceAllowUnencryptedTraffic {
+    #18.9.97.2.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Service\Allow unencrypted traffic
+    Write-Info "18.9.97.2.3 (L1) Ensure 'Allow unencrypted traffic' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" "AllowUnencryptedTraffic" "0" $REG_DWORD
+}
+
+function WinRMServiceDisableRunAs {
+    #18.9.97.2.4 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Service\Disallow WinRM from storing RunAs credentials
+    Write-Info "18.9.97.2.4 (L1) Ensure 'Disallow WinRM from storing RunAs credentials' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" "DisableRunAs" "1" $REG_DWORD
+}
+
+function WinRSAllowRemoteShellAccess {
+    #18.9.98.1 => Computer Configuration\Administrative Templates\Windows Components\Windows Remote Shell\Allow Remote Shell Access
+    Write-Info "18.9.98.1 (L2) Ensure 'Allow Remote Shell Access' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service\WinRS" "AllowRemoteShellAccess" "0" $REG_DWORD
+}
+
+function DisallowExploitProtectionOverride {
+    #18.9.99.2.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Security\App and browser protection\Prevent users from modifying settings 
+    Write-Info "18.9.99.2.1 (L1) Ensure 'Prevent users from modifying settings' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\App and Browser protection" "DisallowExploitProtectionOverride" "1" $REG_DWORD
+}
+
+function Managepreviewbuilds {
+    #18.9.102.1.1 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Update\Windows Update for Business\Manage preview builds
+    Write-Info "18.9.102.1.1 (L1) Ensure 'Manage preview builds' is set to 'Enabled: Disable preview builds'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "ManagePreviewBuilds" "1" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "ManagePreviewBuildsPolicyValue" "1" $REG_DWORD
+}
+
+function WindowsUpdateFeature {
+    #18.9.102.1.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Update\Windows Update for Business\Select when Preview Builds and Feature Updates are received
+    Write-Info "18.9.102.1.2 (L1) Ensure 'Select when Preview Builds and Feature Updates are received' is set to 'Enabled: Semi-Annual Channel, 180 or more days'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "DeferFeatureUpdates" "1" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "DeferFeatureUpdatesPeriodInDays" "180" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "BranchReadinessLevel" "16" $REG_DWORD
+}
+
+function WindowsUpdateQuality {
+    #18.9.102.1.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Update\Windows Update for Business\Select when Quality Updates are received
+    Write-Info "18.9.102.1.3 (L1) Ensure 'Select when Quality Updates are received' is set to 'Enabled: 0 days'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "DeferQualityUpdates" "1" $REG_DWORD
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" "DeferQualityUpdatesPeriodInDays" "0" $REG_DWORD
+}
+
+function ConfigureAutomaticUpdates {
+    #18.8.102.2 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Update\Configure Automatic Updates
+    Write-Info "18.9.102.2 (L1) Ensure 'Configure Automatic Updates' is set to 'Enabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" "NoAutoUpdate" "4" $REG_DWORD
+}
+
+function Scheduledinstallday {
+    #18.9.102.3 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Update\Configure Automatic Updates: Scheduled install day
+    Write-Info "18.9.102.3 (L1) Ensure 'Configure Automatic Updates: Scheduled install day' is set to '0 - Every day'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" "ScheduledInstallDay" "0" $REG_DWORD
+}
+
+function NoAutoRebootWithLoggedOnUsers {
+    #18.9.102.4 => Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Update\No auto-restart with logged on users for scheduled automatic updates installations
+    Write-Info "18.9.102.4 (L1) Ensure 'No auto-restart with logged on users for scheduled automatic updates installations' is set to 'Disabled'"
+    SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" "NoAutoRebootWithLoggedOnUsers" "0" $REG_DWORD
+}
 
 
 
