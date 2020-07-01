@@ -1,14 +1,17 @@
-﻿# CIS Microsoft Windows Server 2019 RTM Benchmark
+﻿param([string] $NewLocalAdminUsername = "",[string] $NewLocalAdminPswd = "", [string] $LegalNoticeMessageFile = "", [string] $ExecutionListFile = "")
+
+# CIS Microsoft Windows Server 2019 RTM Benchmark
 # You can get the most up to date version in:
 # https://github.com/viniciusmiguel/CIS-Microsoft-Windows-Server-2019-Benchmark
 
 ##########################################################################################################
-$LogonLegalNoticeMessageTitle = "Warning Notice:"
-$LogonLegalNoticeMessage = "You are about to enter a private network intended for the authorized users only. The use of this system may be monitored and/or recorded for administrative, and security reasons in accordance with, applicable law and policies."
+$LogonLegalNoticeMessageTitle = ""
+$LogonLegalNoticeMessage = ""
 
 #IF YOU HAVE SPECIAL SECURITY REQUIREMENTS YOU CAN DISABLE POLICIES BELLOW
 $ExecutionList = @(
     #KEEP THESE IN THE BEGINING
+    "CreateNewLocalAdminAccount", #Mandatory otherwise the system access is lost
     "RenameAdministratorAccount", #2.3.1.5 
     "RenameGuestAccount",         #2.3.1.6
     ###########################
@@ -279,13 +282,18 @@ $ExecutionList = @(
 	"RequirePasswordWakes", #18.8.34.6.3
 	"RequirePasswordWakesAC", #18.8.34.6.4
 	"fAllowUnsolicited", #18.8.36.1
-	"fAllowToGetHelp" #, #18.8.36.2
+	"fAllowToGetHelp", #18.8.36.2
 	"EnableAuthEpResolution"
 )
 
 
 $AdminAccountName = "Administrator"
 $GuestAccountName = "Guest"
+$NewLocalAdmin = "User"
+if($NewLocalAdminPswd -ne "") {
+    $NewLocalAdminPassword = ConvertTo-SecureString $NewLocalAdminPswd -AsPlainText -Force
+}
+
 
 #Randomize the new admin and guest accounts on each system.
 #This increases the security not affecting the accessibility since these accounts are always disabled. 
@@ -293,9 +301,9 @@ $GuestAccountName = "Guest"
 $seed_admin = Get-Random -Minimum 1000 -Maximum 9999
 $seed_guest = Get-Random -Minimum 1000 -Maximum 9999
 
-$AdminNewAccountName = "Admin$($seed_admin)"
+$AdminNewAccountName = "DisabledUser$($seed_admin)"
 
-$GuestNewAccountName = "Guest$($seed_guest)"
+$GuestNewAccountName = "DisabledUserSec$($seed_guest)"
 
 #DO NOT CHANGE CODE BELLOW THIS LINE IF YOU ARE NOT 100% SURE ABOUT WHAT YOU ARE DOING!
 ##########################################################################################################
@@ -305,6 +313,7 @@ $GuestNewAccountName = "Guest$($seed_guest)"
 
 $SID_NOONE = "`"`""
 $SID_ADMINISTRATORS = "*S-1-5-32-544"
+$SID_GUESTS = "*S-1-5-32-546"
 $SID_SERVICE = "*S-1-5-6"
 $SID_NETWORK_SERVICE = "*S-1-5-20"
 $SID_LOCAL_SERVICE = "*S-1-5-19"
@@ -454,25 +463,23 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
     rm -force ${env:appdata}\secpol.cfg -confirm:$false
 }
 
-function SetUserRight([string]$role, [string[]] $values, $enforceCreation) {
+function SetUserRight([string]$role, [string[]] $values, $enforceCreation=$true) {
     SetSecEdit $role $values "User_Rights" $enforceCreation
 }
 
-function SetSecurityPolicy([string]$role, [string[]] $values, $enforceCreation) {
+function SetSecurityPolicy([string]$role, [string[]] $values, $enforceCreation=$true) {
     SetSecEdit $role $values "SecurityPolicy" $enforceCreation 
 }
 
-function InstallPolicyFileEditor {
-    #This powershell module enables Set-PolicyFileEntry CmdLet
-    register-packagesource -Name NuGet -ProviderName NuGet -location https://www.nuget.org/api/v2/
-    Import-PackageProvider NuGet -Force
-    Install-Module -Name PolicyFileEditor -Force
+function CreateUserAccount([string] $username, [securestring] $password, [bool] $isAdmin=$false) {
+    New-LocalUser -Name $username -Password $password -Description "" -AccountNeverExpires -PasswordNeverExpires
+    if($isAdmin -eq $true) {
+        Add-LocalGroupMember -Group "Administrators" -Member $username
+    }
 }
 
-function InstallGPMC {
-    #Installs Group Policy Manager
-    Install-WindowsFeature –Name GPMC
-    Get-Command -Module GroupPolicy
+function CreateNewLocalAdminAccount {
+    CreateUserAccount $NewLocalAdmin $NewLocalAdminPassword $true
 }
 
 function EnforcePasswordHistory
@@ -666,25 +673,25 @@ function DebugPrograms {
 function DenyNetworkAccess {
     #2.2.21 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny access to this computer from the network
     Write-Info "2.2.21 (L1) Ensure 'Deny access to this computer from the network' to include 'Guests, Local account and member of Administrators group'"
-    SetUserRight "SeDenyNetworkLogonRight"($SID_LOCAL_ACCOUNT, $($AdminNewAccountName),$($GuestAccountName))
+    SetUserRight "SeDenyNetworkLogonRight" ($SID_LOCAL_ACCOUNT, $($AdminNewAccountName),$($SID_GUESTS))
 }
 
 function DenyGuestBatchLogon {
     #2.2.22 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on as a batch job
     Write-Info "2.2.22 (L1) Ensure 'Deny log on as a batch job' to include 'Guests'"
-    SetUserRight "SeDenyBatchLogonRight" (,$GuestNewAccountName)
+    SetUserRight "SeDenyBatchLogonRight" (,$SID_GUESTS)
 }
 
 function DenyGuestServiceLogon {
     #2.2.23 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on as a service
     Write-Info "2.2.23 (L1) Ensure 'Deny log on as a service' to include 'Guests'"
-    SetUserRight "SeDenyServiceLogonRight" (,$GuestNewAccountName)
+    SetUserRight "SeDenyServiceLogonRight" (,$SID_GUESTS)
 }
 
 function DenyGuestLocalLogon {
     #2.2.24 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\User Rights Assignment\Deny log on locally
     Write-Info "2.2.24 (L1) Ensure 'Deny log on locally' to include 'Guests'"
-    SetUserRight "SeDenyInteractiveLogonRight" (,$GuestNewAccountName)
+    SetUserRight "SeDenyInteractiveLogonRight" (,$SID_GUESTS)
 }
 
 function DenyRemoteDesktopServiceLogon {
@@ -824,12 +831,14 @@ function RenameAdministratorAccount {
     #2.3.1.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Accounts: Rename administrator account
     Write-Info "2.3.1.5 (L1) Configure 'Accounts: Rename administrator account'"
     SetSecurityPolicy "NewAdministratorName" (,"`"$($AdminNewAccountName)`"")
+    Set-LocalUser -Name $AdminNewAccountName -Description " "
 }
 
 function RenameGuestAccount {
     #2.3.1.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Accounts: Rename guest account
     Write-Info "2.3.1.6 (L1) Configure 'Accounts: Rename guest account'"
     SetSecurityPolicy "NewGuestName" (,"`"$($GuestNewAccountName)`"")
+    Set-LocalUser -Name $GuestNewAccountName -Description " "
 }
 
 function AuditForceSubCategoryPolicy {
@@ -881,7 +890,8 @@ function EnableAccountPasswordChanges {
 }
 
 function MaximumAccountPasswordAge {
-    #2.3.6.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Maximum machine account password age    Write-Info "2.3.6.5 (L1) Ensure 'Domain member: Maximum machine account password age' is set to '30 or fewer days, but not 0'"
+    #2.3.6.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Domain member: Maximum machine account password age
+    Write-Info "2.3.6.5 (L1) Ensure 'Domain member: Maximum machine account password age' is set to '30 or fewer days, but not 0'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters\MaximumPasswordAge" (,"4,30")
 }
 
@@ -922,7 +932,8 @@ function LogonLegalNoticeTitle {
 }
 
 function PreviousLogonCache {
-    #2.3.7.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Number of previous logons to cache (in case domain controller is not available)    Write-Info "2.3.7.6 (L2) Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)'"
+    #2.3.7.6 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Interactive logon: Number of previous logons to cache (in case domain controller is not available)
+    Write-Info "2.3.7.6 (L2) Ensure 'Interactive logon: Number of previous logons to cache (in case domain controller is not available)' is set to '4 or fewer logon(s)'"
     SetSecurityPolicy "MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\CachedLogonsCount" (,"1,`"4`"")
 }
 
@@ -1017,7 +1028,8 @@ function DisableDomainCreds {
 }
 
 function EveryoneIncludesAnonymous {
-    #2.3.10.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Let Everyone permissions apply to anonymous users    Write-Info "2.3.10.5 (L1) Ensure 'Network access: Let Everyone permissions apply to anonymous users' is set to 'Disabled'"
+    #2.3.10.5 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Let Everyone permissions apply to anonymous users
+    Write-Info "2.3.10.5 (L1) Ensure 'Network access: Let Everyone permissions apply to anonymous users' is set to 'Disabled'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\EveryoneIncludesAnonymous" (,"4,0")
 }
 
@@ -1028,7 +1040,8 @@ function NullSessionPipes {
 }
 
 function AllowedExactPaths {
-    #2.3.10.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Remotely accessible registry paths    Write-Info "2.3.10.8 (L1) Configure 'Network access: Remotely accessible registry paths'"
+    #2.3.10.8 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Remotely accessible registry paths
+    Write-Info "2.3.10.8 (L1) Configure 'Network access: Remotely accessible registry paths'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedExactPaths\Machine" (
         "7",
         "System\CurrentControlSet\Control\ProductOptions",
@@ -1037,7 +1050,8 @@ function AllowedExactPaths {
 }
 
 function AllowedPaths {
-    #2.3.10.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Remotely accessible registry paths and sub-paths    Write-Info "2.3.10.9 (L1) Configure 'Network access: Remotely accessible registry paths and sub-paths'"
+    #2.3.10.9 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network access: Remotely accessible registry paths and sub-paths
+    Write-Info "2.3.10.9 (L1) Configure 'Network access: Remotely accessible registry paths and sub-paths'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedPaths\Machine" (
         "7",
         "System\CurrentControlSet\Control\Print\Printers",
@@ -1078,12 +1092,14 @@ function LsaForceGuest {
 }
 
 function LsaUseMachineId {
-    #2.3.11.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Allow Local System to use computer identity for NTLM    Write-Info "2.3.11.1 (L1) Ensure 'Network security: Allow Local System to use computer identity for NTLM' is set to 'Enabled'"
+    #2.3.11.1 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Allow Local System to use computer identity for NTLM
+    Write-Info "2.3.11.1 (L1) Ensure 'Network security: Allow Local System to use computer identity for NTLM' is set to 'Enabled'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\UseMachineId" (,"4,1")
 }
 
 function AllowNullSessionFallback {
-    #2.3.11.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Allow LocalSystem NULL session fallback    Write-Info "2.3.11.2 (L1) Ensure 'Network security: Allow LocalSystem NULL session fallback' is set to 'Disabled'"
+    #2.3.11.2 => Computer Configuration\Policies\Windows Settings\Security Settings\Local Policies\Security Options\Network security: Allow LocalSystem NULL session fallback
+    Write-Info "2.3.11.2 (L1) Ensure 'Network security: Allow LocalSystem NULL session fallback' is set to 'Disabled'"
     SetSecurityPolicy "MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0\allownullsessionfallback " (,"4,0")
 }
 
@@ -2593,19 +2609,97 @@ function NoAutoRebootWithLoggedOnUsers {
     SetRegistry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" "NoAutoRebootWithLoggedOnUsers" "0" $REG_DWORD
 }
 
-
-
+function ValidatePasswords([string] $pass1, [string] $pass2) {
+    if($pass1 -ne $pass2) { return $False }
+    if($pass1 -notmatch "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#^!%*?&])[A-Za-z\d@$#^!%*?&]{15,}$") { return $False }
+    return $True;
+}
+if ([Environment]::Is64BitProcess -ne [Environment]::Is64BitOperatingSystem)
+{
+    Write-Error "You must execute this script on a x64 shell"
+    Write-Error "Aborted."
+    return 1;
+}
 if(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
     
+    
+    $temp_pass1 = ""
+    $temp_pass2 = ""
+    $invalid_pass = $true
+
+    if($NewLocalAdminUsername -ne "") {
+        if($NewLocalAdminPswd -eq "") {
+            Write-Error "NewLocalAdminUsername set but NewLocalAdminPasswd not set."
+            Write-Error "Please use -NewLocalAdminPassword parameter to set the password!"
+            return
+        } else {
+            if((ValidatePasswords $NewLocalAdminPswd $NewLocalAdminPswd) -eq $False) {
+                Write-Error "NewLocalAdminPassword does not fullfill the minimum security requirements"
+                Write-Info "Your passwords must contain at least 15 characters, capital letters, numbers and symbols"
+                return 1;
+            } else {
+                $temp_pass1 = ConvertTo-SecureString $NewLocalAdminPassword -AsPlainText -Force 
+            }
+        }
+    } else {
+        do {
+            Write-Info "I will create a new Administrator account, you need to specify the new account password."
+            Write-Info "Your password must contain at least 15 characters, capital letters, numbers and symbols"
+            Write-Info "Please enter the new password:"
+            $temp_pass1 = Read-Host
+            Write-Info "Please repeat the new password:"
+            $temp_pass2 = Read-Host 
+            $invalid_pass = ValidatePasswords $temp_pass1 $temp_pass2 
+            if($invalid_pass -eq $false) {
+                Write-Error "Your passwords do not match or do not follow the minimum complexity requirements, try again."
+            } else {
+                $NewLocalAdminPassword = ConvertTo-SecureString $temp_pass1 -AsPlainText -Force 
+            }
+        } while($invalid_pass -eq $false)
+    }
+    
+    
+
+    if($LegalNoticeMessageFile -ne "") {
+        if(Test-Path($LegalNoticeMessageFile) -eq $False) {
+            Write-Error "The script cannot continue, The LegalNoticeMessageFile was provided but could not found"
+            return 1;
+        }
+        $legalNoticeFilePath = Resolve-Path $LegalNoticeMessageFile
+
+        $legalNoticeFileContent = Get-Content $legalNoticeFilePath -ErrorAction Stop | ForEach { $_.Trim() } | Where { $_ -ne "" }
+
+        if($legalNoticeFileContent.Length -ne 2) {
+            Write-Error "The script cannot continue, The LegalNoticeMessageFile content should contain 2 Lines, being the first one the Legal Notice Title and the second one the Legal Notice Message"
+            return 1;
+        }
+        $LogonLegalNoticeMessageTitle = $legalNoticeFileContent[0]
+        $LogonLegalNoticeMessage = $legalNoticeFileContent[1]
+    }
+
+    if($ExecutionListFile -ne "") {
+        if(Test-Path($ExecutionListFile) -eq $False) {
+            Write-Error "A execution list file was provided as parameter but could not be found! Aborting."
+            return 1;
+        }
+        $ExecutionList = Get-Content $ExecutionListFile -ErrorAction Stop | ForEach { $_.Trim() } | Where { $_ -ne "" -and $_[0] -ne "#" }
+    }
+
     $location = Get-Location
+    
+    secedit /export /cfg $location\secedit_original.cfg
+    
     $ExecutionList | ForEach { ( Invoke-Expression $_) } | Out-File $location\Report.txt 
     $ExecutionList | measure -Line 
     $ExecutionList | Out-File $location\PoliciesApplied.txt
 
+    secedit /export /cfg $location\secedit_final.cfg
+
 } else {
 
     Write-Error "You must execute this script with administrator privileges!"
-
+    Write-Error "Aborted."
+    return 1;
 }
 
 $host.UI.RawUI.ForegroundColor = $fc
