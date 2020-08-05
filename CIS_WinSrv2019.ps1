@@ -2689,8 +2689,8 @@ if(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::G
     
     secedit /export /cfg $location\secedit_original.cfg
     
-    $ExecutionList | ForEach { ( Invoke-Expression $_) } | Out-File $location\Report.txt 
-    $ExecutionList | measure -Line 
+    $ExecutionList | ForEach-Object { ( Invoke-Expression $_) } | Out-File $location\Report.txt 
+    $ExecutionList | Measure-Object -Line 
     $ExecutionList | Out-File $location\PoliciesApplied.txt
 
     secedit /export /cfg $location\secedit_final.cfg
