@@ -416,12 +416,12 @@ function SetRegistry([string] $path, [string] $key, [string] $value, [string] $k
 function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) {
     $valueSet = $false
 
-    if($values -eq $null) {
+    if($null -eq $values) {
         Write-Error "SetSecEdit: At least one value must be provided to set the role:$($role)"
         return
     }
     
-    if($enforceCreation -eq $null){
+    if($null -eq $enforceCreation){
         $enforceCreation = $true
     }
 
@@ -460,7 +460,7 @@ function SetSecEdit([string]$role, [string[]] $values, $area, $enforceCreation) 
     secedit /configure /db c:\windows\security\local.sdb /cfg ${env:appdata}\secpol.cfg /areas $area
 	CheckError $? "Configuring '$($area)' via $(${env:appdata})\secpol.cfg' failed."
 	
-    rm -force ${env:appdata}\secpol.cfg -confirm:$false
+    Remove-Item -force ${env:appdata}\secpol.cfg -confirm:$false
 }
 
 function SetUserRight([string]$role, [string[]] $values, $enforceCreation=$true) {
@@ -530,9 +530,9 @@ function WindowsPasswordComplexityPolicyMustBeEnabled
     #1.1.5 (L1) Ensure 'Password must meet complexity requirements' is set to 'Enabled' (Scored)
     Write-Info "1.1.5 (L1) Ensure 'Password must meet complexity requirements' is set to 'Enabled' (Scored)"
     secedit /export /cfg ${env:appdata}\secpol.cfg
-    (gc ${env:appdata}\secpol.cfg).replace("PasswordComplexity = 0", "PasswordComplexity = 1") | Out-File ${env:appdata}\secpol.cfg
+    (Get-Content ${env:appdata}\secpol.cfg).replace("PasswordComplexity = 0", "PasswordComplexity = 1") | Out-File ${env:appdata}\secpol.cfg
     secedit /configure /db c:\windows\security\local.sdb /cfg ${env:appdata}\secpol.cfg /areas SECURITYPOLICY
-    rm -force ${env:appdata}\secpol.cfg -confirm:$false
+    Remove-Item -force ${env:appdata}\secpol.cfg -confirm:$false
 
 }
 
@@ -541,9 +541,9 @@ function DisablePasswordReversibleEncryption {
     #1.1.6 (L1) Ensure 'Store passwords using reversible encryption' is set to 'Disabled' (Scored)
     Write-Info "1.1.6 (L1) Ensure 'Store passwords using reversible encryption' is set to 'Disabled' (Scored)"
     secedit /export /cfg ${env:appdata}\secpol.cfg
-    (gc ${env:appdata}\secpol.cfg).replace("ClearTextPassword = 1", "ClearTextPassword = 0") | Out-File ${env:appdata}\secpol.cfg
+    (Get-Content ${env:appdata}\secpol.cfg).replace("ClearTextPassword = 1", "ClearTextPassword = 0") | Out-File ${env:appdata}\secpol.cfg
     secedit /configure /db c:\windows\security\local.sdb /cfg ${env:appdata}\secpol.cfg /areas SECURITYPOLICY
-    rm -force ${env:appdata}\secpol.cfg -confirm:$false
+    Remove-Item -force ${env:appdata}\secpol.cfg -confirm:$false
 }
 
 function AccountLockoutDuration
@@ -2667,7 +2667,7 @@ if(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::G
         }
         $legalNoticeFilePath = Resolve-Path $LegalNoticeMessageFile
 
-        $legalNoticeFileContent = Get-Content $legalNoticeFilePath -ErrorAction Stop | ForEach { $_.Trim() } | Where { $_ -ne "" }
+        $legalNoticeFileContent = Get-Content $legalNoticeFilePath -ErrorAction Stop | ForEa ch-Object { $_.Trim() } | Where-Object { $_ -ne "" }
 
         if($legalNoticeFileContent.Length -ne 2) {
             Write-Error "The script cannot continue, The LegalNoticeMessageFile content should contain 2 Lines, being the first one the Legal Notice Title and the second one the Legal Notice Message"
@@ -2682,15 +2682,15 @@ if(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::G
             Write-Error "A execution list file was provided as parameter but could not be found! Aborting."
             return 1;
         }
-        $ExecutionList = Get-Content $ExecutionListFile -ErrorAction Stop | ForEach { $_.Trim() } | Where { $_ -ne "" -and $_[0] -ne "#" }
+        $ExecutionList = Get-Content $ExecutionListFile -ErrorAction Stop | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne "" -and $_[0] -ne "#" }
     }
 
     $location = Get-Location
     
     secedit /export /cfg $location\secedit_original.cfg
     
-    $ExecutionList | ForEach { ( Invoke-Expression $_) } | Out-File $location\Report.txt 
-    $ExecutionList | measure -Line 
+    $ExecutionList | ForEach-Object { ( Invoke-Expression $_) } | Out-File $location\Report.txt 
+    $ExecutionList | Measure-Object -Line 
     $ExecutionList | Out-File $location\PoliciesApplied.txt
 
     secedit /export /cfg $location\secedit_final.cfg
